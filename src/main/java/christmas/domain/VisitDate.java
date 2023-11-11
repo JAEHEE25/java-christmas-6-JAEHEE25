@@ -1,8 +1,13 @@
 package christmas.domain;
 
 public class VisitDate {
-    private int visitDate;
+    private final int visitDate;
+
     public VisitDate(String playerInput) {
-        visitDate = Integer.parseInt(playerInput);
+        visitDate = toInt(playerInput);
+    }
+
+    private int toInt(String playerInput) {
+        return Integer.parseInt(playerInput);
     }
 }
