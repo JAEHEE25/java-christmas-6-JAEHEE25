@@ -1,13 +1,12 @@
 package christmas.validator;
 
-import christmas.domain.contants.EventMonth;
 import christmas.domain.contants.ExceptionMessage;
-import christmas.domain.contants.MenuInfo;
+import christmas.domain.contants.MenuBoard;
 
-public class NotMenuValidator implements Validator<String> {
+public class InMenuBoardValidator implements Validator<String> {
     @Override
     public void validate(String inputMenu) {
-        if (!MenuInfo.hasMenu(inputMenu)) {
+        if (!MenuBoard.hasMenu(inputMenu)) {
             throwException(ExceptionMessage.INVALID_ORDER.getMessage());
         }
     }

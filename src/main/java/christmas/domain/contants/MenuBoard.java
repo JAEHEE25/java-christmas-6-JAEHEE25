@@ -2,7 +2,7 @@ package christmas.domain.contants;
 
 import java.util.Arrays;
 
-public enum MenuInfo {
+public enum MenuBoard {
     MUSHROOM_SOUP("애피타이저", "양송이수프", 6000),
     TAPAS("애피타이저", "타파스", 5500),
     CAESAR_SALAD("애피타이저", "시저샐러드", 8000),
@@ -20,7 +20,7 @@ public enum MenuInfo {
     private final String menu;
     private final int price;
 
-    MenuInfo(String type, String menu, int price) {
+    MenuBoard(String type, String menu, int price) {
         this.type = type;
         this.menu = menu;
         this.price = price;
@@ -39,7 +39,7 @@ public enum MenuInfo {
     }
 
     public static boolean hasMenu(String inputMenu) {
-        return Arrays.stream(MenuInfo.values())
+        return Arrays.stream(MenuBoard.values())
                 .anyMatch(menu -> menu.getMenu().equals(inputMenu));
     }
 }

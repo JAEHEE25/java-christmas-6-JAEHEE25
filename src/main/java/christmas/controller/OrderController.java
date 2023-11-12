@@ -2,7 +2,10 @@ package christmas.controller;
 
 import christmas.domain.Order;
 import christmas.util.Parser;
-import christmas.validator.NotMenuValidator;
+import christmas.validator.CountNumberFormatValidator;
+import christmas.validator.InMenuBoardValidator;
+import christmas.validator.MenuCountValidator;
+import christmas.validator.DateNumberFormatValidator;
 import christmas.view.InputView;
 
 import java.util.HashMap;
@@ -23,7 +26,8 @@ public class OrderController {
         for (String order : orders) {
             String[] menuAndCount = Parser.toMenuAndCountArray(order);
             String menu = validateInMenu(menuAndCount[0]);
-            orderResult.put(menu, Parser.toInt(menuAndCount[1]));
+            int count = validateCount(menuAndCount[1]);
+            orderResult.put(menu, count);
         }
         return orderResult;
     }
@@ -33,8 +37,23 @@ public class OrderController {
     }
 
     private String validateInMenu(String inputMenu) {
-        NotMenuValidator notMenuValidator = new NotMenuValidator();
-        notMenuValidator.validate(inputMenu);
+        InMenuBoardValidator inMenuBoardValidator = new InMenuBoardValidator();
+        inMenuBoardValidator.validate(inputMenu);
         return inputMenu;
+    }
+
+    private void validateNumberFormat(String inputCount) {
+        CountNumberFormatValidator countNumberFormatValidator = new CountNumberFormatValidator();
+        countNumberFormatValidator.validate(inputCount);
+    }
+
+    private int validateCount(String inputCount) {
+        validateNumberFormat(inputCount);
+        int count = Parser.toInt(inputCount);
+
+        MenuCountValidator menuCountValidator = new MenuCountValidator();
+        menuCountValidator.validate(count);
+
+        return count;
     }
 }

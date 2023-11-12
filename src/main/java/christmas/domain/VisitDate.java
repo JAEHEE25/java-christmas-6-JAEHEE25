@@ -1,8 +1,8 @@
 package christmas.domain;
 
 import christmas.util.Parser;
-import christmas.validator.NumberFormatValidator;
-import christmas.validator.OutOfRangeNumberValidator;
+import christmas.validator.DateNumberFormatValidator;
+import christmas.validator.InRangeNumberValidator;
 
 public class VisitDate {
     private final int visitDate;
@@ -15,12 +15,12 @@ public class VisitDate {
     }
 
     private void validateNumberFormat(String playerInput) {
-        NumberFormatValidator numberFormatValidator = new NumberFormatValidator();
-        numberFormatValidator.validate(playerInput);
+        DateNumberFormatValidator dateNumberFormatValidator = new DateNumberFormatValidator();
+        dateNumberFormatValidator.validate(playerInput);
     }
 
     private void validateNumberRange(int inputDate) {
-        OutOfRangeNumberValidator outOfRangeNumberValidator = new OutOfRangeNumberValidator();
-        outOfRangeNumberValidator.validate(inputDate);
+        InRangeNumberValidator inRangeNumberValidator = new InRangeNumberValidator();
+        inRangeNumberValidator.validate(inputDate);
     }
 }

@@ -55,8 +55,8 @@ public class InputTest {
         assertThat(actualOrder).isEqualTo(expectedOrder);
     }
 
-    @DisplayName("고객이 메뉴판에 없는 메뉴를 입력하거나 20개를 초과하여 주문할 경우 예외가 발생한다.")
-    @ValueSource(strings = {"떡볶이-1", "해산물파스타-21"})
+    @DisplayName("고객이 메뉴판에 없는 메뉴를 입력하거나, 입력한 메뉴의 개수가 1 이상 20 이하의 숫자가 아닐 경우 예외가 발생한다.")
+    @ValueSource(strings = {"떡볶이-1", "해산물파스타-A", "해산물파스타-0", "해산물파스타-21"})
     @ParameterizedTest
     void notMenu(String playerInput) {
         OrderController orderController = new OrderController();
