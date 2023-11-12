@@ -1,6 +1,7 @@
 package christmas.validator;
 
 import christmas.domain.contants.ExceptionMessage;
+import christmas.util.Parser;
 
 public class NumberFormatValidator implements Validator<String> {
     @Override
@@ -12,7 +13,7 @@ public class NumberFormatValidator implements Validator<String> {
 
     private boolean isNumeric(String value) {
         try {
-            Integer.parseInt(value);
+            Parser.toInt(value);
             return true;
         } catch (NumberFormatException e) {
             return false;

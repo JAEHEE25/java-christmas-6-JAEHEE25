@@ -1,21 +1,17 @@
 package christmas.domain;
 
+import christmas.util.Parser;
 import christmas.validator.NumberFormatValidator;
 import christmas.validator.OutOfRangeNumberValidator;
-import christmas.validator.Validator;
 
 public class VisitDate {
     private final int visitDate;
 
     public VisitDate(String playerInput) {
         validateNumberFormat(playerInput);
-        int inputDate = toInt(playerInput);
+        int inputDate = Parser.toInt(playerInput);
         validateNumberRange(inputDate);
         visitDate = inputDate;
-    }
-
-    private int toInt(String playerInput) {
-        return Integer.parseInt(playerInput);
     }
 
     private void validateNumberFormat(String playerInput) {

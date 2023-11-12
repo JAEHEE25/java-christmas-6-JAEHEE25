@@ -1,6 +1,7 @@
 package christmas.controller;
 
 import christmas.domain.contants.InputSetting;
+import christmas.util.Parser;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ public class OrderController {
 
         for (String order : orders) {
             String[] menuAndCount = toMenuAndCountArray(order);
-            orderResult.put(menuAndCount[0], toInt(menuAndCount[1]));
+            orderResult.put(menuAndCount[0], Parser.toInt(menuAndCount[1]));
         }
         return orderResult;
     }
@@ -25,9 +26,5 @@ public class OrderController {
 
     private String[] toMenuAndCountArray(String order) {
         return order.split(InputSetting.MENU_COUNT_DELIMITER.getSetting());
-    }
-
-    private int toInt(String value) {
-        return Integer.parseInt(value);
     }
 }
