@@ -25,7 +25,6 @@ public class OrderedCount {
     }
 
     public int checkCountInRange(int totalCount) {
-        System.out.println(totalCount + orderedCount);
         validateOrderedCount(orderedCount + totalCount);
         return orderedCount + totalCount;
     }

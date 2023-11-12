@@ -4,9 +4,10 @@ import christmas.domain.Order;
 import christmas.domain.OrderedCount;
 import christmas.domain.OrderedMenu;
 import christmas.util.Parser;
-import christmas.validator.OrderedCountValidator;
+import christmas.validator.OrderFormValidator;
 import christmas.view.InputView;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,10 +26,12 @@ public class OrderController {
 
         for (String order : orders) {
             String[] menuAndCount = Parser.toMenuAndCountArray(order);
+            validateOrderForm(menuAndCount);
+
             OrderedMenu orderedMenu = new OrderedMenu(menuAndCount[0]);
             OrderedCount orderedCount = new OrderedCount(menuAndCount[1]);
-
             totalCount = orderedCount.checkCountInRange(totalCount);
+
             orderResult.put(orderedMenu, orderedCount);
         }
         return orderResult;
@@ -37,4 +40,10 @@ public class OrderController {
     public Order createOrder(Map<OrderedMenu, OrderedCount> orderResult) {
         return new Order(orderResult);
     }
+
+    private void validateOrderForm(String[] menuAndCount) {
+        OrderFormValidator orderFormValidator = new OrderFormValidator();
+        orderFormValidator.validate(menuAndCount);
+    }
+
 }
