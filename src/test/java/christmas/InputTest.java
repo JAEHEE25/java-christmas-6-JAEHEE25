@@ -1,5 +1,6 @@
 package christmas;
 
+import christmas.controller.OrderController;
 import christmas.controller.VisitDateController;
 import christmas.domain.VisitDate;
 import org.junit.jupiter.api.DisplayName;
@@ -7,12 +8,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.assertj.core.api.Assertions.*;
 public class InputTest {
-
     @Test
     @DisplayName("고객은 식당에 방문할 날짜를 선택할 수 있다.")
-    void visitDate() {
+    void selectVisitDate() {
        String playerInput = "26";
        VisitDate expectedVisitDate = new VisitDate("26");
 
@@ -28,5 +31,22 @@ public class InputTest {
     void visitDateOutOfRange(String playerInput) {
         assertThatThrownBy(() -> new VisitDate(playerInput))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("고객은 메뉴를 주문할 수 있다.")
+    void selectMenu() {
+        String playerInput = "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1";
+
+        Map<String, Integer> expectedOrder = new HashMap<>();
+        expectedOrder.put("티본스테이크", 1);
+        expectedOrder.put("바비큐립", 1);
+        expectedOrder.put("초코케이크", 2);
+        expectedOrder.put("제로콜라", 1);
+
+        OrderController orderController = new OrderController();
+        Map<String, Integer> actualOrder = orderController.takeOrder(playerInput);
+
+        assertThat(actualOrder).isEqualTo(expectedOrder);
     }
 }
