@@ -58,11 +58,12 @@ public class InputTest {
     @Test
     @DisplayName("고객이 메뉴판에 없는 메뉴를 입력하는 경우 예외가 발생한다.")
     void notMenu() {
-        Map<String, Integer> inputOrder = new HashMap<>();
-        inputOrder.put("떡볶이", 1);
+        String playerInput = "떡볶이-1";
 
-        assertThatThrownBy(() -> new Order(inputOrder))
+        OrderController orderController = new OrderController();
+        assertThatThrownBy(() -> orderController.takeOrder(playerInput))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+                .hasMessage((ExceptionMessage.HEADER.getMessage()) +
+                ExceptionMessage.INVALID_ORDER.getMessage());
     }
 }

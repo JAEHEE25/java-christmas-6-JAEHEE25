@@ -1,11 +1,10 @@
 package christmas.controller;
 
 import christmas.domain.Order;
-import christmas.domain.contants.InputSetting;
 import christmas.util.Parser;
+import christmas.validator.NotMenuValidator;
 import christmas.view.InputView;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,12 +22,19 @@ public class OrderController {
 
         for (String order : orders) {
             String[] menuAndCount = Parser.toMenuAndCountArray(order);
-            orderResult.put(menuAndCount[0], Parser.toInt(menuAndCount[1]));
+            String menu = validateInMenu(menuAndCount[0]);
+            orderResult.put(menu, Parser.toInt(menuAndCount[1]));
         }
         return orderResult;
     }
 
     public Order createOrder(Map<String, Integer> orderResult) {
         return new Order(orderResult);
+    }
+
+    private String validateInMenu(String inputMenu) {
+        NotMenuValidator notMenuValidator = new NotMenuValidator();
+        notMenuValidator.validate(inputMenu);
+        return inputMenu;
     }
 }

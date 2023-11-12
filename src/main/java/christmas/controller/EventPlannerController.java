@@ -30,8 +30,17 @@ public class EventPlannerController {
 
     private Order getOrder() {
         String playerInput = orderController.getMenuAndCountInput();
-        Map<String, Integer> orderResult = orderController.takeOrder(playerInput);
-        return orderController.createOrder(orderResult);
+        Map<String, Integer> orderResult;
+        Order order;
+
+        try {
+            orderResult = orderController.takeOrder(playerInput);
+            order = orderController.createOrder(orderResult);
+        } catch (IllegalArgumentException e) {
+            outputView.printExceptionMessage(e.getMessage());
+            order = getOrder();
+        }
+        return order;
     }
 
     public void proceedEvent() {
