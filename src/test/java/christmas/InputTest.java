@@ -52,20 +52,53 @@ public class InputTest {
         OrderController orderController = new OrderController();
         Map<OrderedMenu, OrderedCount> actualOrder = orderController.takeOrder(playerInput);
 
-        assertThat(actualOrder).isEqualTo(expectedOrder);
+        assertThat(actualOrder).usingRecursiveComparison().isEqualTo(expectedOrder);
     }
 
-    @DisplayName("고객이 메뉴판에 없는 메뉴를 입력할 경우, 입력한 메뉴의 개수가 1 이상의 숫자가 아닐 경우," +
-            "총 주문한 메뉴의 개수가 20개를 초과할 경우, 입력한 메뉴 형식이 잘못되었을 경우," +
-            "중복 메뉴를 입력한 경우 예외가 발생한다.")
-    @ValueSource(strings = {"떡볶이-1", "해산물파스타-A", "해산물파스타-0", "해산물파스타-19,레드와인-2",
-            "해산물파스타-", "해산물파스타-초코케이크-1", "해산물파스타-1,해산물파스타-1"})
+    @DisplayName("고객이 메뉴판에 없는 메뉴를 입력할 경우, 중복된 메뉴를 입력할 경우 예외가 발생한다.")
+    @ValueSource(strings = {"떡볶이-1", "해산물파스타-1,해산물파스타-1"})
     @ParameterizedTest
-    void notMenu(String playerInput) {
+    void orderedMenu(String playerInput) {
+        Map<OrderedMenu, OrderedCount> orderResult = new HashMap<>();
+
+        assertThatThrownBy(() -> new OrderedMenu(playerInput, orderResult))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage((ExceptionMessage.HEADER.getMessage()) +
+                        ExceptionMessage.INVALID_ORDER.getMessage());
+    }
+
+    @DisplayName("입력한 메뉴의 개수가 1 이상의 숫자가 아닐 경우 예외가 발생한다.")
+    @ValueSource(strings = {"해산물파스타-A", "해산물파스타-0"})
+    @ParameterizedTest
+    void orderedCount(String playerInput) {
+        assertThatThrownBy(() -> new OrderedCount(playerInput))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage((ExceptionMessage.HEADER.getMessage()) +
+                        ExceptionMessage.INVALID_ORDER.getMessage());
+    }
+
+    @DisplayName("총 주문한 메뉴의 개수가 20개를 초과할 경우, 입력한 메뉴 형식이 잘못되었을 경우 예외가 발생한다.")
+    @ValueSource(strings = {"해산물파스타-19,레드와인-2", "해산물파스타-", "해산물파스타-초코케이크-1"})
+    @ParameterizedTest
+    void takeOrder(String playerInput) {
         OrderController orderController = new OrderController();
+
         assertThatThrownBy(() -> orderController.takeOrder(playerInput))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage((ExceptionMessage.HEADER.getMessage()) +
                 ExceptionMessage.INVALID_ORDER.getMessage());
     }
+    @Test
+    @DisplayName("음료만 주문한 경우 예외가 발생한다.")
+    void orderDrinkOnly() {
+        Map<OrderedMenu, OrderedCount> order = new HashMap<>();
+        order.put(new OrderedMenu("레드와인", order), new OrderedCount("2"));
+        order.put(new OrderedMenu("제로콜라", order), new OrderedCount("1"));
+
+        assertThatThrownBy(() -> new Order(order))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage((ExceptionMessage.HEADER.getMessage()) +
+                        ExceptionMessage.INVALID_ORDER.getMessage());
+    }
+
 }
