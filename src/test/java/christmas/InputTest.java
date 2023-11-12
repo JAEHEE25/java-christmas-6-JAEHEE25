@@ -55,11 +55,10 @@ public class InputTest {
         assertThat(actualOrder).isEqualTo(expectedOrder);
     }
 
-    @Test
-    @DisplayName("고객이 메뉴판에 없는 메뉴를 입력하는 경우 예외가 발생한다.")
-    void notMenu() {
-        String playerInput = "떡볶이-1";
-
+    @DisplayName("고객이 메뉴판에 없는 메뉴를 입력하거나 20개를 초과하여 주문할 경우 예외가 발생한다.")
+    @ValueSource(strings = {"떡볶이-1", "해산물파스타-21"})
+    @ParameterizedTest
+    void notMenu(String playerInput) {
         OrderController orderController = new OrderController();
         assertThatThrownBy(() -> orderController.takeOrder(playerInput))
                 .isInstanceOf(IllegalArgumentException.class)
