@@ -28,7 +28,7 @@ public class OrderController {
             String[] menuAndCount = Parser.toMenuAndCountArray(order);
             validateOrderForm(menuAndCount);
 
-            OrderedMenu orderedMenu = new OrderedMenu(menuAndCount[0]);
+            OrderedMenu orderedMenu = new OrderedMenu(menuAndCount[0], orderResult);
             OrderedCount orderedCount = new OrderedCount(menuAndCount[1]);
             totalCount = orderedCount.checkCountInRange(totalCount);
 

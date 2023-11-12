@@ -46,8 +46,8 @@ public class InputTest {
         String playerInput = "티본스테이크-2,제로콜라-1";
 
         Map<OrderedMenu, OrderedCount> expectedOrder = new HashMap<>();
-        expectedOrder.put(new OrderedMenu("티본스테이크"), new OrderedCount("2"));
-        expectedOrder.put(new OrderedMenu("제로콜라"), new OrderedCount("1"));
+        expectedOrder.put(new OrderedMenu("티본스테이크", expectedOrder), new OrderedCount("2"));
+        expectedOrder.put(new OrderedMenu("제로콜라", expectedOrder), new OrderedCount("1"));
 
         OrderController orderController = new OrderController();
         Map<OrderedMenu, OrderedCount> actualOrder = orderController.takeOrder(playerInput);
