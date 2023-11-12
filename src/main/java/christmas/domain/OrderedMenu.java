@@ -24,7 +24,7 @@ public class OrderedMenu {
         duplicateMenuValidator.validate(inputMenu, orderResult);
     }
 
-    public boolean hasInputMenu(String inputMenu) {
+    public boolean isEquals(String inputMenu) {
         return orderedMenu.equals(inputMenu);
     }
 }

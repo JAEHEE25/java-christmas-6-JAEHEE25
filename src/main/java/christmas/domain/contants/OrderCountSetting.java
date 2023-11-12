@@ -1,12 +1,12 @@
 package christmas.domain.contants;
 
-public enum OrderSetting {
+public enum OrderCountSetting {
     ORDER_COUNT_MIN(1),
     ORDER_COUNT_MAX(20);
 
     private final int setting;
 
-    OrderSetting(int setting) {
+    OrderCountSetting(int setting) {
         this.setting = setting;
     }
 

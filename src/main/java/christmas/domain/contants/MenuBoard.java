@@ -1,5 +1,7 @@
 package christmas.domain.contants;
 
+import christmas.domain.OrderedMenu;
+
 import java.util.Arrays;
 
 public enum MenuBoard {
@@ -41,5 +43,11 @@ public enum MenuBoard {
     public static boolean hasMenu(String inputMenu) {
         return Arrays.stream(MenuBoard.values())
                 .anyMatch(menu -> menu.getMenu().equals(inputMenu));
+    }
+
+    public static boolean isCannotOnlyOrderType(OrderedMenu orderedMenu) {
+        return Arrays.stream(MenuBoard.values())
+                .filter(menu -> orderedMenu.isEquals(menu.getMenu()))
+                .anyMatch(menu -> menu.getType().equals(OrderMenuSetting.CANNOT_ONLY_ORDER_TYPE.getSetting()));
     }
 }
