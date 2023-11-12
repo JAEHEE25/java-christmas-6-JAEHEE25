@@ -3,6 +3,8 @@ package christmas;
 import christmas.controller.OrderController;
 import christmas.controller.VisitDateController;
 import christmas.domain.Order;
+import christmas.domain.OrderedCount;
+import christmas.domain.OrderedMenu;
 import christmas.domain.VisitDate;
 import christmas.domain.contants.ExceptionMessage;
 import org.junit.jupiter.api.DisplayName;
@@ -41,16 +43,14 @@ public class InputTest {
     @Test
     @DisplayName("고객은 메뉴를 주문할 수 있다.")
     void selectMenu() {
-        String playerInput = "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1";
+        String playerInput = "티본스테이크-2,제로콜라-1";
 
-        Map<String, Integer> expectedOrder = new HashMap<>();
-        expectedOrder.put("티본스테이크", 1);
-        expectedOrder.put("바비큐립", 1);
-        expectedOrder.put("초코케이크", 2);
-        expectedOrder.put("제로콜라", 1);
+        Map<OrderedMenu, OrderedCount> expectedOrder = new HashMap<>();
+        expectedOrder.put(new OrderedMenu("티본스테이크"), new OrderedCount("2"));
+        expectedOrder.put(new OrderedMenu("제로콜라"), new OrderedCount("1"));
 
         OrderController orderController = new OrderController();
-        Map<String, Integer> actualOrder = orderController.takeOrder(playerInput);
+        Map<OrderedMenu, OrderedCount> actualOrder = orderController.takeOrder(playerInput);
 
         assertThat(actualOrder).isEqualTo(expectedOrder);
     }

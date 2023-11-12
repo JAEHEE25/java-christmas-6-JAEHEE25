@@ -1,10 +1,10 @@
 package christmas.controller;
 
 import christmas.domain.Order;
+import christmas.domain.OrderedCount;
+import christmas.domain.OrderedMenu;
 import christmas.util.Parser;
-import christmas.validator.CountNumberFormatValidator;
-import christmas.validator.InMenuBoardValidator;
-import christmas.validator.MenuCountValidator;
+import christmas.validator.OrderedCountValidator;
 import christmas.view.InputView;
 
 import java.util.HashMap;
@@ -19,51 +19,22 @@ public class OrderController {
         return inputView.getMenuAndCount();
     }
 
-    public Map<String, Integer> takeOrder(String playerInput) {
-        Map<String, Integer> orderResult = new HashMap<>();
+    public Map<OrderedMenu, OrderedCount> takeOrder(String playerInput) {
+        Map<OrderedMenu, OrderedCount> orderResult = new HashMap<>();
         List<String> orders = Parser.toOrderList(playerInput);
 
         for (String order : orders) {
-            String[] menuAndCount = getMenuAndCount(order);
-            String menu = menuAndCount[0];
-            int count = Parser.toInt(menuAndCount[1]);
+            String[] menuAndCount = Parser.toMenuAndCountArray(order);
+            OrderedMenu orderedMenu = new OrderedMenu(menuAndCount[0]);
+            OrderedCount orderedCount = new OrderedCount(menuAndCount[1]);
 
-            validateCount(count);
-            checkTotalCount(count);
-
-            orderResult.put(menu, count);
+            totalCount = orderedCount.checkCountInRange(totalCount);
+            orderResult.put(orderedMenu, orderedCount);
         }
         return orderResult;
     }
 
-    public Order createOrder(Map<String, Integer> orderResult) {
+    public Order createOrder(Map<OrderedMenu, OrderedCount> orderResult) {
         return new Order(orderResult);
-    }
-
-    public String[] getMenuAndCount(String order) {
-        String[] menuAndCount = Parser.toMenuAndCountArray(order);
-        validateInMenu(menuAndCount[0]);
-        validateNumberFormat(menuAndCount[1]);
-        return menuAndCount;
-    }
-
-    private void checkTotalCount(int inputCount) {
-        totalCount += inputCount;
-        validateCount(totalCount);
-    }
-
-    private void validateInMenu(String inputMenu) {
-        InMenuBoardValidator inMenuBoardValidator = new InMenuBoardValidator();
-        inMenuBoardValidator.validate(inputMenu);
-    }
-
-    private void validateNumberFormat(String inputCount) {
-        CountNumberFormatValidator countNumberFormatValidator = new CountNumberFormatValidator();
-        countNumberFormatValidator.validate(inputCount);
-    }
-
-    private void validateCount(int count) {
-        MenuCountValidator menuCountValidator = new MenuCountValidator();
-        menuCountValidator.validate(count);
     }
 }
