@@ -8,4 +8,9 @@ public class InputView {
         System.out.println(InputViewMessage.VISIT_DATE_INPUT.getMessage());
         return Console.readLine();
     }
+
+    public String getMenuAndCount() {
+        System.out.println(InputViewMessage.MENU_AND_COUNT_INPUT.getMessage());
+        return Console.readLine();
+    }
 }
