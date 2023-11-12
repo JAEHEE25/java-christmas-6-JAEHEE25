@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.domain.Order;
 import christmas.domain.VisitDate;
 import christmas.domain.contants.EventPeriod;
 import christmas.util.Calculator;
@@ -18,5 +19,9 @@ public class EventDiscountController {
 
     private boolean isChristmasEventPeriod(VisitDate visitDate) {
         return visitDate.isChristmasEventPeriod();
+    }
+
+    public int calculateWeekdayDiscount(VisitDate visitDate, Order order) {
+        return 0;
     }
 }
