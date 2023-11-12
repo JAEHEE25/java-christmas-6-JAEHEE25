@@ -2,6 +2,7 @@ package christmas;
 
 import christmas.controller.OrderController;
 import christmas.controller.VisitDateController;
+import christmas.domain.Order;
 import christmas.domain.VisitDate;
 import christmas.domain.contants.ExceptionMessage;
 import org.junit.jupiter.api.DisplayName;
@@ -52,5 +53,16 @@ public class InputTest {
         Map<String, Integer> actualOrder = orderController.takeOrder(playerInput);
 
         assertThat(actualOrder).isEqualTo(expectedOrder);
+    }
+
+    @Test
+    @DisplayName("고객이 메뉴판에 없는 메뉴를 입력하는 경우 예외가 발생한다.")
+    void notMenu() {
+        Map<String, Integer> inputOrder = new HashMap<>();
+        inputOrder.put("떡볶이", 1);
+
+        assertThatThrownBy(() -> new Order(inputOrder))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
 }
