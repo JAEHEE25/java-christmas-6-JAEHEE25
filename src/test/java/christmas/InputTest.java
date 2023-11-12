@@ -56,8 +56,9 @@ public class InputTest {
     }
 
     @DisplayName("고객이 메뉴판에 없는 메뉴를 입력할 경우, 입력한 메뉴의 개수가 1 이상의 숫자가 아닐 경우," +
-            "총 주문한 메뉴의 개수가 20개를 초과할 경우 예외가 발생한다.")
-    @ValueSource(strings = {"떡볶이-1", "해산물파스타-A", "해산물파스타-0", "해산물파스타-19,레드와인-2"})
+            "총 주문한 메뉴의 개수가 20개를 초과할 경우, 입력한 메뉴 형식이 잘못되었을 경우 예외가 발생한다.")
+    @ValueSource(strings = {"떡볶이-1", "해산물파스타-A", "해산물파스타-0", "해산물파스타-19,레드와인-2",
+            "해산물파스타-", "해산물파스타-초코케이크-1"})
     @ParameterizedTest
     void notMenu(String playerInput) {
         OrderController orderController = new OrderController();
