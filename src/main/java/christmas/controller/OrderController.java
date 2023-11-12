@@ -5,7 +5,6 @@ import christmas.util.Parser;
 import christmas.validator.CountNumberFormatValidator;
 import christmas.validator.InMenuBoardValidator;
 import christmas.validator.MenuCountValidator;
-import christmas.validator.DateNumberFormatValidator;
 import christmas.view.InputView;
 
 import java.util.HashMap;
@@ -14,6 +13,7 @@ import java.util.Map;
 
 public class OrderController {
     private final InputView inputView = new InputView();
+    private int totalCount = 0;
 
     public String getMenuAndCountInput() {
         return inputView.getMenuAndCount();
@@ -24,9 +24,13 @@ public class OrderController {
         List<String> orders = Parser.toOrderList(playerInput);
 
         for (String order : orders) {
-            String[] menuAndCount = Parser.toMenuAndCountArray(order);
-            String menu = validateInMenu(menuAndCount[0]);
-            int count = validateCount(menuAndCount[1]);
+            String[] menuAndCount = getMenuAndCount(order);
+            String menu = menuAndCount[0];
+            int count = Parser.toInt(menuAndCount[1]);
+
+            validateCount(count);
+            checkTotalCount(count);
+
             orderResult.put(menu, count);
         }
         return orderResult;
@@ -36,10 +40,21 @@ public class OrderController {
         return new Order(orderResult);
     }
 
-    private String validateInMenu(String inputMenu) {
+    public String[] getMenuAndCount(String order) {
+        String[] menuAndCount = Parser.toMenuAndCountArray(order);
+        validateInMenu(menuAndCount[0]);
+        validateNumberFormat(menuAndCount[1]);
+        return menuAndCount;
+    }
+
+    private void checkTotalCount(int inputCount) {
+        totalCount += inputCount;
+        validateCount(totalCount);
+    }
+
+    private void validateInMenu(String inputMenu) {
         InMenuBoardValidator inMenuBoardValidator = new InMenuBoardValidator();
         inMenuBoardValidator.validate(inputMenu);
-        return inputMenu;
     }
 
     private void validateNumberFormat(String inputCount) {
@@ -47,13 +62,8 @@ public class OrderController {
         countNumberFormatValidator.validate(inputCount);
     }
 
-    private int validateCount(String inputCount) {
-        validateNumberFormat(inputCount);
-        int count = Parser.toInt(inputCount);
-
+    private void validateCount(int count) {
         MenuCountValidator menuCountValidator = new MenuCountValidator();
         menuCountValidator.validate(count);
-
-        return count;
     }
 }
