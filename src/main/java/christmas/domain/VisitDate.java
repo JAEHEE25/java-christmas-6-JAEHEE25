@@ -2,7 +2,7 @@ package christmas.domain;
 
 import christmas.domain.contants.EventDate;
 import christmas.domain.contants.EventPeriod;
-import christmas.domain.contants.WeekdayEventInfo;
+import christmas.domain.contants.WeekEventInfo;
 import christmas.util.Calculator;
 import christmas.util.Parser;
 import christmas.validator.DateNumberFormatValidator;
@@ -45,9 +45,16 @@ public class VisitDate {
     }
 
     public boolean isWeekDayEventPeriod() {
-        boolean isEventPeriod = visitDate >= EventPeriod.DEFAULT_EVENT.getStartDay() &&
+        return isDefaultEventPeriod() && WeekEventInfo.isWeekday(visitDay);
+    }
+
+    public boolean isWeekendEventPeriod() {
+        return isDefaultEventPeriod() && WeekEventInfo.isWeekend(visitDay);
+    }
+
+    private boolean isDefaultEventPeriod() {
+        return visitDate >= EventPeriod.DEFAULT_EVENT.getStartDay() &&
                 visitDate <= EventPeriod.DEFAULT_EVENT.getEndDay();
-        return isEventPeriod && WeekdayEventInfo.isWeekday(visitDay);
     }
 
     public boolean isSameDay(int day) {

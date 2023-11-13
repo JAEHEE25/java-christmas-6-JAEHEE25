@@ -1,7 +1,7 @@
 package christmas.domain;
 
 import christmas.domain.contants.MenuBoard;
-import christmas.domain.contants.WeekdayEventInfo;
+import christmas.domain.contants.WeekEventInfo;
 import christmas.validator.DuplicateMenuValidator;
 import christmas.validator.InMenuBoardValidator;
 
@@ -34,8 +34,8 @@ public class OrderedMenu {
         return MenuBoard.getTypeByMenu(orderedMenu);
     }
 
-    public boolean isWeekdayEventMenuType(VisitDate visitDate) {
+    public boolean isWeekEventMenuType(VisitDate visitDate) {
         String orderedMenuType = getOrderedMenuType();
-        return WeekdayEventInfo.isWeekdayEventMenuType(visitDate, orderedMenuType);
+        return WeekEventInfo.isWeekEventMenuType(visitDate, orderedMenuType);
     }
 }

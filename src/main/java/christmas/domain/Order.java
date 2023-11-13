@@ -17,15 +17,15 @@ public class Order {
         orderMenuValidator.validate(inputOrder);
     }
 
-    public int getWeekdayEventMenuCount(VisitDate visitDate) {
-        int weekdayEventMenuCount = 0;
+    public int getWeekEventMenuCount(VisitDate visitDate) {
+        int weekEventMenuCount = 0;
 
         for (OrderedMenu orderedMenu : order.keySet()) {
-            if (orderedMenu.isWeekdayEventMenuType(visitDate)) {
+            if (orderedMenu.isWeekEventMenuType(visitDate)) {
                 OrderedCount orderedCount = order.get(orderedMenu);
-                weekdayEventMenuCount = orderedCount.addTotalCount(weekdayEventMenuCount);
+                weekEventMenuCount = orderedCount.addTotalCount(weekEventMenuCount);
             }
         }
-        return weekdayEventMenuCount;
+        return weekEventMenuCount;
     }
 }
