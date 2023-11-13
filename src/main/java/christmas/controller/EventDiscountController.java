@@ -27,4 +27,8 @@ public class EventDiscountController {
         }
         return totalDiscount;
     }
+
+    public int calculateWeekendDiscount(VisitDate visitDate, Order order) {
+        return 0;
+    }
 }

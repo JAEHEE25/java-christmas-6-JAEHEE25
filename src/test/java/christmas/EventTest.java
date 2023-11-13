@@ -42,4 +42,21 @@ public class EventTest {
         int actualDiscount = eventDiscountController.calculateWeekdayDiscount(visitDate, order);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
+
+    @Test
+    @DisplayName("주말에는 메인 메뉴가 1개당 2023원씩 할인된다.")
+    void weekendEvent() {
+        VisitDate visitDate = new VisitDate("8");
+
+        Map<OrderedMenu, OrderedCount> orderResult = new HashMap<>();
+        orderResult.put(new OrderedMenu("티본스테이크", orderResult), new OrderedCount("2"));
+        orderResult.put(new OrderedMenu("초코케이크", orderResult), new OrderedCount("1"));
+        Order order = new Order(orderResult);
+
+        int expectedDiscount = 4046;
+
+        EventDiscountController eventDiscountController = new EventDiscountController();
+        int actualDiscount = eventDiscountController.calculateWeekendDiscount(visitDate, order);
+        assertThat(actualDiscount).isEqualTo(expectedDiscount);
+    }
 }
