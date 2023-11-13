@@ -49,6 +49,7 @@ public class EventPlannerController {
 
     public void setBenefitReport(Order order) {
         benefitReport.putOrderMenuList(order);
+        benefitReport.putTotalOrderAmount(order);
     }
 
     public String getBenefitReport() {
@@ -56,7 +57,7 @@ public class EventPlannerController {
         Map<String, String> benefitReportResult = benefitReport.getBenefitReport();
 
         for (String title : benefitReportResult.keySet()) {
-            report.append(title).append("\n").append(benefitReportResult.get(title));
+            report.append(title).append("\n").append(benefitReportResult.get(title)).append("\n");
         }
 
         return report.toString();

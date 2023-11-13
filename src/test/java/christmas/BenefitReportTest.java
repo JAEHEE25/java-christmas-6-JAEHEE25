@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BenefitReportInfoTest {
+public class BenefitReportTest {
     private static Order order;
     private static VisitDate visitDate;
     @BeforeEach

@@ -2,6 +2,7 @@ package christmas.domain.contants;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public enum BenefitReportInfo {
@@ -24,7 +25,7 @@ public enum BenefitReportInfo {
     }
 
     public static Map<String, String> createBenefitReport() {
-        Map<String, String> benefitReport = new HashMap<>();
+        Map<String, String> benefitReport = new LinkedHashMap<>();
         Arrays.stream(BenefitReportInfo.values())
                 .forEach(title -> benefitReport.put(title.getTitle(), ""));
         return benefitReport;

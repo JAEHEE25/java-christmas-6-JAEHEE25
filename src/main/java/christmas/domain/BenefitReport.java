@@ -2,6 +2,7 @@ package christmas.domain;
 
 import christmas.domain.contants.BenefitReportInfo;
 import christmas.domain.contants.ReportSetting;
+import christmas.util.Parser;
 
 import java.util.Map;
 
@@ -26,6 +27,11 @@ public class BenefitReport {
 
     public void putOrderMenuList(Order order) {
         benefitReport.put(BenefitReportInfo.ORDER_MENU_LIST.getTitle(), getOrderMenuList(order));
+    }
+
+    public void putTotalOrderAmount(Order order) {
+        benefitReport.put(BenefitReportInfo.TOTAL_ORDER_AMOUNT.getTitle(),
+                Parser.toThousandUnitMoney(order.calculateToTalOrderAmount()) + "\n");
     }
 
     public Map<String, String> getBenefitReport() {
