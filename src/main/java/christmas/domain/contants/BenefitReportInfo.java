@@ -1,7 +1,6 @@
 package christmas.domain.contants;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -13,21 +12,21 @@ public enum BenefitReportInfo {
     TOTAL_BENEFIT_AMOUNT("<총혜택 금액>"),
     PAYMENT_AMOUNT("<할인 후 예상 결제 금액>"),
     EVENT_BADGE("<12월 이벤트 배지>");
+    
+    private final String phrase;
 
-    private final String title;
-
-    BenefitReportInfo(String title) {
-        this.title = title;
+    BenefitReportInfo(String phrase) {
+        this.phrase = phrase;
     }
 
-    public String getTitle() {
-        return title;
+    public String getPhrase() {
+        return phrase;
     }
 
     public static Map<String, String> createBenefitReport() {
         Map<String, String> benefitReport = new LinkedHashMap<>();
         Arrays.stream(BenefitReportInfo.values())
-                .forEach(title -> benefitReport.put(title.getTitle(), ""));
+                .forEach(title -> benefitReport.put(title.getPhrase(), ""));
         return benefitReport;
     }
 }

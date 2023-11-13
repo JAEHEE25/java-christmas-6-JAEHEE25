@@ -1,6 +1,7 @@
 package christmas.controller;
 
 import christmas.domain.*;
+import christmas.domain.contants.EventPeriod;
 import christmas.view.OutputView;
 
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.Map;
 public class EventPlannerController {
     private final VisitDateController visitDateController = new VisitDateController();
     private final OrderController orderController = new OrderController();
+    private final EventDiscountController eventDiscountController = new EventDiscountController();
     private final BenefitReport benefitReport = new BenefitReport();
     private final OutputView outputView = new OutputView();
 
@@ -43,6 +45,15 @@ public class EventPlannerController {
         return order;
     }
 
+    public void applyEventDiscount(VisitDate visitDate, Order order) {
+        applyPresentEventDiscount(visitDate, order);
+    }
+
+    public void applyPresentEventDiscount(VisitDate visitDate, Order order) {
+        int totalDiscount = eventDiscountController.calculatePresentDiscount(visitDate, order);
+        benefitReport.putPresentMenu(totalDiscount);
+    }
+
     public void startBenefitReport(VisitDate visitDate) {
         outputView.startBenefitReport(visitDate);
     }
@@ -67,6 +78,8 @@ public class EventPlannerController {
         startEventPlanner();
         VisitDate visitDate = getVisitDate();
         Order order = getOrder();
+
+        applyEventDiscount(visitDate, order);
 
         startBenefitReport(visitDate);
         setBenefitReport(order);

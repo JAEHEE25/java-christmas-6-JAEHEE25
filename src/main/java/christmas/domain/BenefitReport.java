@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.domain.contants.BenefitReportInfo;
+import christmas.domain.contants.PresentEventInfo;
 import christmas.domain.contants.ReportSetting;
 import christmas.util.Parser;
 
@@ -26,12 +27,24 @@ public class BenefitReport {
     }
 
     public void putOrderMenuList(Order order) {
-        benefitReport.put(BenefitReportInfo.ORDER_MENU_LIST.getTitle(), getOrderMenuList(order));
+        benefitReport.put(BenefitReportInfo.ORDER_MENU_LIST.getPhrase(), getOrderMenuList(order));
     }
 
     public void putTotalOrderAmount(Order order) {
-        benefitReport.put(BenefitReportInfo.TOTAL_ORDER_AMOUNT.getTitle(),
+        benefitReport.put(BenefitReportInfo.TOTAL_ORDER_AMOUNT.getPhrase(),
                 Parser.toThousandUnitMoney(order.calculateToTalOrderAmount()) + "\n");
+    }
+
+    private String getPresentMenu(int totalDiscount) {
+        if (totalDiscount != 0) {
+            return PresentEventInfo.CHAMPAGNE_EVENT.getPresent() + " " +
+                    PresentEventInfo.CHAMPAGNE_EVENT.getCount() + ReportSetting.MENU_UNIT.getSetting() + "\n";
+        }
+        return ReportSetting.NOTHING.getSetting() + "\n";
+    }
+
+    public void putPresentMenu(int totalDiscount) {
+        benefitReport.put(BenefitReportInfo.PRESENT_MENU.getPhrase(), getPresentMenu(totalDiscount));
     }
 
     public Map<String, String> getBenefitReport() {
