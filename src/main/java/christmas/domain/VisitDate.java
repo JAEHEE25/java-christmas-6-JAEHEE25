@@ -53,7 +53,7 @@ public class VisitDate {
         return isDefaultEventPeriod() && WeekEventInfo.isWeekend(visitDay);
     }
 
-    private boolean isDefaultEventPeriod() {
+    public boolean isDefaultEventPeriod() {
         return visitDate >= EventPeriod.DEFAULT_EVENT.getStartDay() &&
                 visitDate <= EventPeriod.DEFAULT_EVENT.getEndDay();
     }

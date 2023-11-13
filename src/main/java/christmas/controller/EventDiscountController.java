@@ -46,10 +46,11 @@ public class EventDiscountController {
         return totalDiscount;
     }
 
-    public int calculatePresentDiscount(Order order) {
+    public int calculatePresentDiscount(VisitDate visitDate, Order order) {
         int totalDiscount = 0;
 
-        if (order.calculateToTalOrderAmount() >= PresentEventInfo.CHAMPAGNE_EVENT.getMoneyCriteria()) {
+        if (visitDate.isDefaultEventPeriod() &&
+                order.calculateToTalOrderAmount() >= PresentEventInfo.CHAMPAGNE_EVENT.getMoneyCriteria()) {
             String present = PresentEventInfo.CHAMPAGNE_EVENT.getPresent();
             int presentPrice = MenuBoard.getPriceByMenu(present);
             int presentCount = PresentEventInfo.CHAMPAGNE_EVENT.getCount();

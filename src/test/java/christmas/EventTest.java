@@ -16,7 +16,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EventTest {
-    private Order setUp() {
+    private Order order() {
         Map<OrderedMenu, OrderedCount> orderResult = new HashMap<>();
         orderResult.put(new OrderedMenu("티본스테이크", orderResult), new OrderedCount("2"));
         orderResult.put(new OrderedMenu("초코케이크", orderResult), new OrderedCount("1"));
@@ -37,7 +37,7 @@ public class EventTest {
     @DisplayName("평일에는 디저트 메뉴가 1개당 2023원씩 할인된다.")
     void weekdayEvent() {
         VisitDate visitDate = new VisitDate("4");
-        Order order = setUp();
+        Order order = order();
         int expectedDiscount = 2023;
 
         EventDiscountController eventDiscountController = new EventDiscountController();
@@ -49,7 +49,7 @@ public class EventTest {
     @DisplayName("주말에는 메인 메뉴가 1개당 2023원씩 할인된다.")
     void weekendEvent() {
         VisitDate visitDate = new VisitDate("8");
-        Order order = setUp();
+        Order order = order();
         int expectedDiscount = 4046;
 
         EventDiscountController eventDiscountController = new EventDiscountController();
@@ -61,7 +61,6 @@ public class EventTest {
     @DisplayName("이벤트 달력에 별이 있는 날에는 총주문 금액에서 1000원 할인된다.")
     void specialEvent() {
         VisitDate visitDate = new VisitDate("17");
-        Order order = setUp();
         int expectedDiscount = 1000;
 
         EventDiscountController eventDiscountController = new EventDiscountController();
@@ -72,11 +71,12 @@ public class EventTest {
     @Test
     @DisplayName("할인 전 총주문 금액이 12만원 이상일 경우 샴페인 1개를 증정한다.")
     void presentEvent() {
-        Order order = setUp();
+        Order order = order();
+        VisitDate visitDate = new VisitDate("17");
         int expectedDiscount = 25000;
 
         EventDiscountController eventDiscountController = new EventDiscountController();
-        int actualDiscount = eventDiscountController.calculatePresentDiscount(order);
+        int actualDiscount = eventDiscountController.calculatePresentDiscount(visitDate, order);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
 }
