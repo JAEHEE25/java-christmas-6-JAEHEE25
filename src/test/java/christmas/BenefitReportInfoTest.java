@@ -1,21 +1,12 @@
 package christmas;
 
-import christmas.controller.BenefitHistoryController;
-import christmas.controller.EventDiscountController;
-import christmas.domain.Order;
-import christmas.domain.OrderedCount;
-import christmas.domain.OrderedMenu;
-import christmas.domain.VisitDate;
+import christmas.domain.*;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-public class BenefitHistoryTest {
+public class BenefitReportInfoTest {
     private static Order order;
     private static VisitDate visitDate;
     @BeforeEach
@@ -31,16 +22,4 @@ public class BenefitHistoryTest {
 
         visitDate = new VisitDate("25");
     }
-
-    @Test
-    @DisplayName("주문한 메뉴와 개수가 표시된다.")
-    void orderedMenuAndCount() {
-        String expectedResult = "양송이수프 1개\n티본스테이크 1개\n크리스마스파스타 1개\n초코케이크 1개\n아이스크림 2개\n레드와인 1개\n";
-
-        BenefitHistoryController benefitHistoryController = new BenefitHistoryController();
-        String actualResult = benefitHistoryController.getOrderMenuList();
-
-        assertThat(actualResult).isEqualTo(expectedResult);
-    }
-
 }
