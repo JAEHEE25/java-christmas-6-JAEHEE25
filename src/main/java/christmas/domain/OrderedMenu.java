@@ -34,6 +34,10 @@ public class OrderedMenu {
         return MenuBoard.getTypeByMenu(orderedMenu);
     }
 
+    public int getOrderedMenuPrice() {
+        return MenuBoard.getPriceByMenu(orderedMenu);
+    }
+
     public boolean isWeekEventMenuType(VisitDate visitDate) {
         String orderedMenuType = getOrderedMenuType();
         return WeekEventInfo.isWeekEventMenuType(visitDate, orderedMenuType);

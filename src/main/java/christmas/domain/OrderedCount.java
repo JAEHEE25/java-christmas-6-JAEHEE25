@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.util.Calculator;
 import christmas.util.Parser;
 import christmas.validator.CountNumberFormatValidator;
 import christmas.validator.OrderedCountValidator;
@@ -31,5 +32,9 @@ public class OrderedCount {
 
     public int addTotalCount(int totalCount) {
         return orderedCount + totalCount;
+    }
+
+    public int calculateOrderAmount(int price) {
+        return Calculator.multiplication(orderedCount, price);
     }
 }

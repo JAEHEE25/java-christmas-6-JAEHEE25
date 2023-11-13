@@ -57,4 +57,10 @@ public enum MenuBoard {
                 .filter(menuBoard -> orderedMenu.equals(menuBoard.getMenu()))
                 .findAny().get().getType();
     }
+
+    public static int getPriceByMenu(String orderedMenu) {
+        return Arrays.stream(MenuBoard.values())
+                .filter(menuBoard -> orderedMenu.equals(menuBoard.getMenu()))
+                .findAny().get().getPrice();
+    }
 }

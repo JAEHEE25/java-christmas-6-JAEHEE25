@@ -1,15 +1,18 @@
 package christmas.domain;
 
+import christmas.domain.contants.MenuBoard;
 import christmas.validator.OrderMenuValidator;
 
 import java.util.Map;
 
 public class Order {
     private final Map<OrderedMenu, OrderedCount> order;
+    private int totalOrderAmount;
 
     public Order(Map<OrderedMenu, OrderedCount> inputOrder) {
         validateOrderMenu(inputOrder);
         order = inputOrder;
+        totalOrderAmount = 0;
     }
 
     public void validateOrderMenu(Map<OrderedMenu, OrderedCount> inputOrder) {
@@ -27,5 +30,14 @@ public class Order {
             }
         }
         return weekEventMenuCount;
+    }
+
+    public int calculateToTalOrderAmount() {
+        for (OrderedMenu orderedMenu : order.keySet()) {
+            int price = orderedMenu.getOrderedMenuPrice();
+            OrderedCount orderedCount = order.get(orderedMenu);
+            totalOrderAmount += orderedCount.calculateOrderAmount(price);
+        }
+        return totalOrderAmount;
     }
 }
