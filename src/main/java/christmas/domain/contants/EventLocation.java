@@ -2,7 +2,7 @@ package christmas.domain.contants;
 
 public enum EventLocation {
     LOCATION_NAME("우테코 "),
-    LOCATION_TYPE("식당 ");
+    LOCATION_TYPE("식당");
 
     private final String location;
 

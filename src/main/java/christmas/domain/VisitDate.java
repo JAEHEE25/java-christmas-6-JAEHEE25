@@ -69,5 +69,9 @@ public class VisitDate {
     public boolean isSameDay(int day) {
         return visitDay == day;
     }
+
+    public int getVisitDate() {
+        return visitDate;
+    }
 }
 

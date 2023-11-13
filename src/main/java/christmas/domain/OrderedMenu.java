@@ -42,4 +42,8 @@ public class OrderedMenu {
         String orderedMenuType = getOrderedMenuType();
         return WeekEventInfo.isWeekEventMenuType(visitDate, orderedMenuType);
     }
+
+    public String getOrderedMenu() {
+        return orderedMenu;
+    }
 }

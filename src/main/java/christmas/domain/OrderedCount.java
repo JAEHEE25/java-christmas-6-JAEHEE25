@@ -37,4 +37,8 @@ public class OrderedCount {
     public int calculateOrderAmount(int price) {
         return Calculator.multiplication(orderedCount, price);
     }
+
+    public int getOrderedCount() {
+        return orderedCount;
+    }
 }

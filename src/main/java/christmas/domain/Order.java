@@ -40,4 +40,8 @@ public class Order {
         }
         return totalOrderAmount;
     }
+
+    public Map<OrderedMenu, OrderedCount> getOrder() {
+        return order;
+    }
 }

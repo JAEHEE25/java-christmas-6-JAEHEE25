@@ -1,9 +1,6 @@
 package christmas.controller;
 
-import christmas.domain.Order;
-import christmas.domain.OrderedCount;
-import christmas.domain.OrderedMenu;
-import christmas.domain.VisitDate;
+import christmas.domain.*;
 import christmas.view.OutputView;
 
 import java.util.Map;
@@ -11,6 +8,7 @@ import java.util.Map;
 public class EventPlannerController {
     private final VisitDateController visitDateController = new VisitDateController();
     private final OrderController orderController = new OrderController();
+    private final BenefitReport benefitReport = new BenefitReport();
     private final OutputView outputView = new OutputView();
 
     private void startEventPlanner() {
@@ -45,9 +43,32 @@ public class EventPlannerController {
         return order;
     }
 
-    public void proceedEvent() {
+    public void startBenefitReport(VisitDate visitDate) {
+        outputView.startBenefitReport(visitDate);
+    }
+
+    public void setBenefitReport(Order order) {
+        benefitReport.putOrderMenuList(order);
+    }
+
+    public String getBenefitReport() {
+        StringBuilder report = new StringBuilder();
+        Map<String, String> benefitReportResult = benefitReport.getBenefitReport();
+
+        for (String title : benefitReportResult.keySet()) {
+            report.append(title).append("\n").append(benefitReportResult.get(title));
+        }
+
+        return report.toString();
+    }
+
+    public void proceedEventPlanner() {
         startEventPlanner();
-        getVisitDate();
-        getOrder();
+        VisitDate visitDate = getVisitDate();
+        Order order = getOrder();
+
+        startBenefitReport(visitDate);
+        setBenefitReport(order);
+        outputView.printBenefitReport(getBenefitReport());
     }
 }

@@ -1,17 +1,18 @@
 package christmas.domain.contants;
 
-public enum ReportUnit {
+public enum ReportSetting {
     MENU_UNIT("개"),
     MONEY_UNIT("원"),
-    MINUS
+    MINUS("-"),
+    COLON(":");
 
-    private final String title;
+    private final String setting;
 
-    BenefitReportInfo(String title) {
-        this.title = title;
+    ReportSetting(String setting) {
+        this.setting = setting;
     }
 
-    public String getTitle() {
-        return title;
+    public String getSetting() {
+        return setting;
     }
 }

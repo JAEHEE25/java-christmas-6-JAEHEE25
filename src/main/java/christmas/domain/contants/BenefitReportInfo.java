@@ -1,7 +1,11 @@
 package christmas.domain.contants;
 
-public enum BenefitReport {
-    ORDERED_MENU_LIST("<주문 메뉴>"),
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+public enum BenefitReportInfo {
+    ORDER_MENU_LIST("<주문 메뉴>"),
     TOTAL_ORDER_AMOUNT("<할인 전 총주문 금액>"),
     PRESENT_MENU("<증정 메뉴>"),
     EVENT_REPORT("<혜택 내역>"),
@@ -11,11 +15,18 @@ public enum BenefitReport {
 
     private final String title;
 
-    BenefitReport(String title) {
+    BenefitReportInfo(String title) {
         this.title = title;
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public static Map<String, String> createBenefitReport() {
+        Map<String, String> benefitReport = new HashMap<>();
+        Arrays.stream(BenefitReportInfo.values())
+                .forEach(title -> benefitReport.put(title.getTitle(), ""));
+        return benefitReport;
     }
 }
