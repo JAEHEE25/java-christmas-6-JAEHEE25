@@ -48,7 +48,7 @@ public class EventDiscountController {
 
     public boolean isPresentEvent(VisitDate visitDate, Order order) {
         return visitDate.isDefaultEventPeriod() &&
-                order.calculateToTalOrderAmount() >= PresentEventInfo.CHAMPAGNE_EVENT.getMoneyCriteria();
+                order.isMeetCriteria(PresentEventInfo.CHAMPAGNE_EVENT.getMoneyCriteria());
     }
 
     public int calculatePresentDiscount(VisitDate visitDate, Order order) {

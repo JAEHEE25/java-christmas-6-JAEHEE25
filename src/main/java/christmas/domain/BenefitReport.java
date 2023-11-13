@@ -32,7 +32,7 @@ public class BenefitReport {
 
     public void putTotalOrderAmount(Order order) {
         benefitReport.put(BenefitReportInfo.TOTAL_ORDER_AMOUNT.getPhrase(),
-                Parser.toThousandUnitMoney(order.calculateToTalOrderAmount()) + "\n");
+                Parser.toThousandUnitMoney(order.getTotalOrderAmount()) + "\n");
     }
 
     private String getPresentMenu(int totalDiscount) {

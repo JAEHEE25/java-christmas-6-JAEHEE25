@@ -12,7 +12,7 @@ public class Order {
     public Order(Map<OrderedMenu, OrderedCount> inputOrder) {
         validateOrderMenu(inputOrder);
         order = inputOrder;
-        totalOrderAmount = 0;
+        totalOrderAmount = calculateToTalOrderAmount();
     }
 
     public void validateOrderMenu(Map<OrderedMenu, OrderedCount> inputOrder) {
@@ -39,6 +39,14 @@ public class Order {
             totalOrderAmount += orderedCount.calculateOrderAmount(price);
         }
         return totalOrderAmount;
+    }
+
+    public int getTotalOrderAmount() {
+        return totalOrderAmount;
+    }
+
+    public boolean isMeetCriteria(int moneyCriteria) {
+        return totalOrderAmount >= moneyCriteria;
     }
 
     public Map<OrderedMenu, OrderedCount> getOrder() {
