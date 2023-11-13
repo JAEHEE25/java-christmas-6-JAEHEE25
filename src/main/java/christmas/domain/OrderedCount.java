@@ -28,4 +28,8 @@ public class OrderedCount {
         validateOrderedCount(orderedCount + totalCount);
         return orderedCount + totalCount;
     }
+
+    public int addTotalCount(int totalCount) {
+        return orderedCount + totalCount;
+    }
 }

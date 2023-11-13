@@ -3,6 +3,7 @@ package christmas.domain.contants;
 import christmas.domain.OrderedMenu;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 public enum MenuBoard {
     MUSHROOM_SOUP("애피타이저", "양송이수프", 6000),
@@ -49,5 +50,11 @@ public enum MenuBoard {
         return Arrays.stream(MenuBoard.values())
                 .filter(menu -> orderedMenu.isEquals(menu.getMenu()))
                 .anyMatch(menu -> menu.getType().equals(OrderMenuSetting.CANNOT_ONLY_ORDER_TYPE.getSetting()));
+    }
+
+    public static String getTypeByMenu(String orderedMenu) {
+        return Arrays.stream(MenuBoard.values())
+                .filter(menuBoard -> orderedMenu.equals(menuBoard.getMenu()))
+                .findAny().get().getType();
     }
 }
