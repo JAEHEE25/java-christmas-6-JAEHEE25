@@ -68,4 +68,15 @@ public class EventTest {
         int actualDiscount = eventDiscountController.calculateSpecialDiscount(visitDate);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
+
+    @Test
+    @DisplayName("할인 전 총주문 금액이 12만원 이상일 경우 샴페인 1개를 증정한다.")
+    void presentEvent() {
+        Order order = setUp();
+        int expectedDiscount = 25000;
+
+        EventDiscountController eventDiscountController = new EventDiscountController();
+        int actualDiscount = eventDiscountController.calculatePresentDiscount(order);
+        assertThat(actualDiscount).isEqualTo(expectedDiscount);
+    }
 }

@@ -47,4 +47,8 @@ public class EventDiscountController {
         }
         return totalDiscount;
     }
+
+    public int calculatePresentDiscount(Order order) {
+        return 0;
+    }
 }
