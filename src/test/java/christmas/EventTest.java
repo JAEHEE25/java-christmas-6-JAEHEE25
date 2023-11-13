@@ -16,6 +16,13 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EventTest {
+    private Order setUp() {
+        Map<OrderedMenu, OrderedCount> orderResult = new HashMap<>();
+        orderResult.put(new OrderedMenu("티본스테이크", orderResult), new OrderedCount("2"));
+        orderResult.put(new OrderedMenu("초코케이크", orderResult), new OrderedCount("1"));
+        return new Order(orderResult);
+    }
+
     @DisplayName("크리스마스 디데이에 따라 할인 금액이 100원씩 증가한다.")
     @CsvSource({"1,1000", "14,2300","25,3400"})
     @ParameterizedTest
@@ -30,12 +37,7 @@ public class EventTest {
     @DisplayName("평일에는 디저트 메뉴가 1개당 2023원씩 할인된다.")
     void weekdayEvent() {
         VisitDate visitDate = new VisitDate("4");
-
-        Map<OrderedMenu, OrderedCount> orderResult = new HashMap<>();
-        orderResult.put(new OrderedMenu("티본스테이크", orderResult), new OrderedCount("2"));
-        orderResult.put(new OrderedMenu("초코케이크", orderResult), new OrderedCount("1"));
-        Order order = new Order(orderResult);
-
+        Order order = setUp();
         int expectedDiscount = 2023;
 
         EventDiscountController eventDiscountController = new EventDiscountController();
@@ -47,16 +49,23 @@ public class EventTest {
     @DisplayName("주말에는 메인 메뉴가 1개당 2023원씩 할인된다.")
     void weekendEvent() {
         VisitDate visitDate = new VisitDate("8");
-
-        Map<OrderedMenu, OrderedCount> orderResult = new HashMap<>();
-        orderResult.put(new OrderedMenu("티본스테이크", orderResult), new OrderedCount("2"));
-        orderResult.put(new OrderedMenu("초코케이크", orderResult), new OrderedCount("1"));
-        Order order = new Order(orderResult);
-
+        Order order = setUp();
         int expectedDiscount = 4046;
 
         EventDiscountController eventDiscountController = new EventDiscountController();
         int actualDiscount = eventDiscountController.calculateWeekendDiscount(visitDate, order);
+        assertThat(actualDiscount).isEqualTo(expectedDiscount);
+    }
+
+    @Test
+    @DisplayName("이벤트 달력에 별이 있는 날에는 총주문 금액에서 1000원 할인된다.")
+    void specialEvent() {
+        VisitDate visitDate = new VisitDate("17");
+        Order order = setUp();
+        int expectedDiscount = 1000;
+
+        EventDiscountController eventDiscountController = new EventDiscountController();
+        int actualDiscount = eventDiscountController.calculateSpecialDiscount(visitDate, order);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
 }
