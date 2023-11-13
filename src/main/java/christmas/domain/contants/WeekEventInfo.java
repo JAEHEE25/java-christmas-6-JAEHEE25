@@ -48,7 +48,7 @@ public enum WeekEventInfo {
                 .findAny().get().menuType.equals(orderedMenuType);
     }
 
-    public static int getDiscountAmountByCount(VisitDate visitDate, int orderedCount) {
+    public static int getDiscountAmountByDayWithCount(VisitDate visitDate, int orderedCount) {
         int discountAmount = Arrays.stream(WeekEventInfo.values())
                 .filter(day -> visitDate.isSameDay(day.getDay()))
                 .findAny().get().discountAmount;

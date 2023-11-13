@@ -2,6 +2,7 @@ package christmas.domain;
 
 import christmas.domain.contants.EventDate;
 import christmas.domain.contants.EventPeriod;
+import christmas.domain.contants.SpecialEventDate;
 import christmas.domain.contants.WeekEventInfo;
 import christmas.util.Calculator;
 import christmas.util.Parser;
@@ -57,9 +58,16 @@ public class VisitDate {
                 visitDate <= EventPeriod.DEFAULT_EVENT.getEndDay();
     }
 
+    public boolean isSpecialEventDate() {
+        return isDefaultEventPeriod() && SpecialEventDate.isSpecialEventDate(visitDate);
+    }
+
+    public boolean isSameDate(int date) {
+        return visitDate == date;
+    }
+
     public boolean isSameDay(int day) {
         return visitDay == day;
     }
-
 }
 

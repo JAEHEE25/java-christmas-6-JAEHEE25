@@ -65,7 +65,7 @@ public class EventTest {
         int expectedDiscount = 1000;
 
         EventDiscountController eventDiscountController = new EventDiscountController();
-        int actualDiscount = eventDiscountController.calculateSpecialDiscount(visitDate, order);
+        int actualDiscount = eventDiscountController.calculateSpecialDiscount(visitDate);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
 }
