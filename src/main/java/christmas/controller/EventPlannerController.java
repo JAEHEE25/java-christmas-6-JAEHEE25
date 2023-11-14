@@ -69,8 +69,11 @@ public class EventPlannerController {
         for (String title : benefitReportResult.keySet()) {
             report.append(title).append("\n").append(benefitReportResult.get(title)).append("\n");
         }
-
         return report.toString();
+    }
+
+    private void showBenefitReport() {
+        outputView.printBenefitReport(getBenefitReport());
     }
 
     public void proceedEventPlanner() {
@@ -80,6 +83,6 @@ public class EventPlannerController {
 
         startBenefitReport(visitDate);
         setBenefitReport(visitDate, order);
-        outputView.printBenefitReport(getBenefitReport());
+        showBenefitReport();
     }
 }
