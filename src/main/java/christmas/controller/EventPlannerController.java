@@ -9,6 +9,7 @@ public class EventPlannerController {
     private final VisitDateController visitDateController = new VisitDateController();
     private final OrderController orderController = new OrderController();
     private final EventDiscountController eventDiscountController = new EventDiscountController();
+    private final EventHistoryController eventHistoryController = new EventHistoryController();
     private final BenefitReport benefitReport = new BenefitReport();
     private final OutputView outputView = new OutputView();
 
@@ -52,7 +53,7 @@ public class EventPlannerController {
         benefitReport.putOrderMenuList(order);
         benefitReport.putTotalOrderAmount(order);
         benefitReport.putPresentMenu(eventDiscountController.calculatePresentDiscount(visitDate, order));
-        benefitReport.putEventHistory(eventDiscountController.getEventHistory(visitDate, order));
+        benefitReport.putEventHistory(eventHistoryController.getEventHistory(visitDate, order));
 
         int totalBenefitAmount = eventDiscountController.calculateTotalBenefitAmount(visitDate, order);
         benefitReport.putTotalBenefitAmount(totalBenefitAmount);
