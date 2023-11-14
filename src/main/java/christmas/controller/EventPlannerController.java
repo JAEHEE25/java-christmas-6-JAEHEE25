@@ -118,6 +118,7 @@ public class EventPlannerController {
         int totalBenefitAmount = eventDiscountController.calculateTotalBenefitAmount(visitDate, order);
         benefitReport.putTotalBenefitAmount(totalBenefitAmount);
         benefitReport.putPaymentAmount(order.calculatePaymentAmount(totalBenefitAmount));
+        benefitReport.putEventBadge(totalBenefitAmount);
     }
 
     public String getBenefitReport() {

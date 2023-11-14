@@ -1,9 +1,6 @@
 package christmas.domain;
 
-import christmas.domain.contants.BenefitReportInfo;
-import christmas.domain.contants.EventPeriod;
-import christmas.domain.contants.PresentEventInfo;
-import christmas.domain.contants.ReportSetting;
+import christmas.domain.contants.*;
 import christmas.util.Parser;
 
 import java.util.Map;
@@ -74,6 +71,18 @@ public class BenefitReport {
     public void putPaymentAmount(int totalPaymentAmount) {
         benefitReport.put(BenefitReportInfo.PAYMENT_AMOUNT.getPhrase(),
                 Parser.toThousandUnitMoney(totalPaymentAmount) + "\n");
+    }
+
+    private String getEventBadge(int totalBenefitAmount) {
+        String eventBadge = EventBadge.getBadgeNameByBenefitAmount(totalBenefitAmount);
+        if (eventBadge.isBlank()) {
+            return getNothingPhrase();
+        }
+        return eventBadge;
+    }
+
+    public void putEventBadge(int totalBenefitAmount) {
+        benefitReport.put(BenefitReportInfo.EVENT_BADGE.getPhrase(), getEventBadge(totalBenefitAmount));
     }
 
     private String getNothingPhrase() {

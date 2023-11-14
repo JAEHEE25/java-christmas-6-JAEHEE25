@@ -10,7 +10,7 @@ public class OutputView {
 
     public void startBenefitReport(VisitDate visitDate) {
         System.out.println(OutputViewMessage.BENEFIT_REPORT_MONTH.getMessage() +
-                visitDate.getVisitDate() + OutputViewMessage.BENEFIT_REPORT.getMessage());
+                visitDate.getVisitDate() + OutputViewMessage.BENEFIT_REPORT.getMessage() + "\n");
     }
 
     public void printBenefitReport(String benefitReport) {
