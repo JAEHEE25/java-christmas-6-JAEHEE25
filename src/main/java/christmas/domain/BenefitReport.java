@@ -37,11 +37,11 @@ public class BenefitReport {
     }
 
     private String getPresentMenu(int totalDiscount) {
-        if (totalDiscount != 0) {
-            return PresentEventInfo.CHAMPAGNE_EVENT.getPresent() + " " +
-                    PresentEventInfo.CHAMPAGNE_EVENT.getCount() + ReportSetting.MENU_UNIT.getSetting() + "\n";
+        if (totalDiscount == 0) {
+            return getNothingPhrase();
         }
-        return ReportSetting.NOTHING.getSetting() + "\n";
+        return PresentEventInfo.CHAMPAGNE_EVENT.getPresent() + " " +
+                PresentEventInfo.CHAMPAGNE_EVENT.getCount() + ReportSetting.MENU_UNIT.getSetting() + "\n";
     }
 
     public void putPresentMenu(int totalDiscount) {
@@ -50,7 +50,7 @@ public class BenefitReport {
 
     private String getEventHistory(String eventHistory) {
         if (eventHistory.isBlank()) {
-            return ReportSetting.NOTHING.getSetting() + "\n";
+            return getNothingPhrase();
         }
         return eventHistory;
     }
@@ -59,9 +59,25 @@ public class BenefitReport {
         benefitReport.put(BenefitReportInfo.EVENT_HISTORY.getPhrase(), getEventHistory(eventHistory));
     }
 
+    private String getTotalBenefitAmount(int totalBenefitAmount) {
+        String totalBenefitAmountResult = Parser.toThousandUnitMoney(totalBenefitAmount) + "\n";
+        if (totalBenefitAmount == 0) {
+            return totalBenefitAmountResult;
+        }
+        return ReportSetting.MINUS.getSetting() + totalBenefitAmountResult;
+    }
+
     public void putTotalBenefitAmount(int totalBenefitAmount) {
-        benefitReport.put(BenefitReportInfo.TOTAL_BENEFIT_AMOUNT.getPhrase(),
-                ReportSetting.MINUS.getSetting() + Parser.toThousandUnitMoney(totalBenefitAmount) + "\n");
+        benefitReport.put(BenefitReportInfo.TOTAL_BENEFIT_AMOUNT.getPhrase(), getTotalBenefitAmount(totalBenefitAmount));
+    }
+
+    public void putPaymentAmount(int totalPaymentAmount) {
+        benefitReport.put(BenefitReportInfo.PAYMENT_AMOUNT.getPhrase(),
+                Parser.toThousandUnitMoney(totalPaymentAmount) + "\n");
+    }
+
+    private String getNothingPhrase() {
+        return ReportSetting.NOTHING.getSetting() + "\n";
     }
 
     public Map<String, String> getBenefitReport() {

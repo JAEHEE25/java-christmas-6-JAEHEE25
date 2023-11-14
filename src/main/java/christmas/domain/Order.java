@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.domain.contants.MenuBoard;
+import christmas.util.Calculator;
 import christmas.validator.OrderMenuValidator;
 
 import java.util.Map;
@@ -54,6 +55,6 @@ public class Order {
     }
 
     public int calculatePaymentAmount(int totalBenefitAmount) {
-        return 0;
+        return Calculator.minus(totalOrderAmount, totalBenefitAmount);
     }
 }

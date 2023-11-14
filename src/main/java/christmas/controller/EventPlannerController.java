@@ -114,7 +114,10 @@ public class EventPlannerController {
         benefitReport.putOrderMenuList(order);
         benefitReport.putTotalOrderAmount(order);
         benefitReport.putEventHistory(setEventHistory(visitDate, order));
-        benefitReport.putTotalBenefitAmount(eventDiscountController.calculateTotalBenefitAmount(visitDate, order));
+
+        int totalBenefitAmount = eventDiscountController.calculateTotalBenefitAmount(visitDate, order);
+        benefitReport.putTotalBenefitAmount(totalBenefitAmount);
+        benefitReport.putPaymentAmount(order.calculatePaymentAmount(totalBenefitAmount));
     }
 
     public String getBenefitReport() {
