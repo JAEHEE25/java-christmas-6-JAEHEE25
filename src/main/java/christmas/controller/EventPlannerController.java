@@ -15,7 +15,7 @@ public class EventPlannerController {
     private final OutputView outputView = new OutputView();
 
     private void startEventPlanner() {
-        outputView.startEventPlanner();
+        outputView.printEventPlannerStartMessage();
     }
 
     private VisitDate getVisitDate() {
@@ -47,7 +47,7 @@ public class EventPlannerController {
     }
 
     public void startBenefitReport(VisitDate visitDate) {
-        outputView.startBenefitReport(visitDate);
+        outputView.printBenefitReportStartMessage(visitDate);
     }
 
     public String getChristmasEventHistory(VisitDate visitDate, Order order) {

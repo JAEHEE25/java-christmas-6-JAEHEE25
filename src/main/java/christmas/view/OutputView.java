@@ -4,11 +4,11 @@ import christmas.domain.VisitDate;
 import christmas.view.constants.OutputViewMessage;
 
 public class OutputView {
-    public void startEventPlanner() {
+    public void printEventPlannerStartMessage() {
         System.out.println(OutputViewMessage.EVENT_PLANNER_START.getMessage());
     }
 
-    public void startBenefitReport(VisitDate visitDate) {
+    public void printBenefitReportStartMessage(VisitDate visitDate) {
         System.out.println(OutputViewMessage.BENEFIT_REPORT_MONTH.getMessage() +
                 visitDate.getVisitDate() + OutputViewMessage.BENEFIT_REPORT.getMessage() + "\n");
     }
