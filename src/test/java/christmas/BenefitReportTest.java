@@ -30,6 +30,15 @@ public class BenefitReportTest extends NsTest {
         });
     }
 
+    @Test
+    @DisplayName("총 혜택 금액에 따라 이벤트 배지를 부여한다.")
+    void eventBadge() {
+        assertSimpleTest(() -> {
+            run("5", "티본스테이크-2,초코케이크-1");
+            assertThat(output()).contains("<12월 이벤트 배지>" + LINE_SEPARATOR + "산타");
+        });
+    }
+
     @Override
     protected void runMain() {
         Application.main(new String[]{});
