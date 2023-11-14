@@ -5,6 +5,7 @@ import christmas.domain.Order;
 import christmas.domain.OrderedCount;
 import christmas.domain.OrderedMenu;
 import christmas.domain.VisitDate;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,11 +17,14 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EventTest {
-    private Order order() {
+    private static Order order;
+
+    @BeforeEach
+    public void order() {
         Map<OrderedMenu, OrderedCount> orderResult = new HashMap<>();
         orderResult.put(new OrderedMenu("티본스테이크", orderResult), new OrderedCount("2"));
         orderResult.put(new OrderedMenu("초코케이크", orderResult), new OrderedCount("1"));
-        return new Order(orderResult);
+        order = new Order(orderResult);
     }
 
     @DisplayName("크리스마스 디데이에 따라 할인 금액이 100원씩 증가한다.")
@@ -28,7 +32,6 @@ public class EventTest {
     @ParameterizedTest
     void christmasEvent(String playerInput, int expectedDiscount) {
         VisitDate visitDate = new VisitDate(playerInput);
-        Order order = new Order(new HashMap<>());
 
         EventDiscountController eventDiscountController = new EventDiscountController();
         int actualDiscount = eventDiscountController.calculateChristmasDiscount(visitDate, order);
@@ -39,7 +42,6 @@ public class EventTest {
     @DisplayName("평일에는 디저트 메뉴가 1개당 2023원씩 할인된다.")
     void weekdayEvent() {
         VisitDate visitDate = new VisitDate("4");
-        Order order = order();
         int expectedDiscount = 2023;
 
         EventDiscountController eventDiscountController = new EventDiscountController();
@@ -51,7 +53,6 @@ public class EventTest {
     @DisplayName("주말에는 메인 메뉴가 1개당 2023원씩 할인된다.")
     void weekendEvent() {
         VisitDate visitDate = new VisitDate("8");
-        Order order = order();
         int expectedDiscount = 4046;
 
         EventDiscountController eventDiscountController = new EventDiscountController();
@@ -66,14 +67,13 @@ public class EventTest {
         int expectedDiscount = 1000;
 
         EventDiscountController eventDiscountController = new EventDiscountController();
-        int actualDiscount = eventDiscountController.calculateSpecialDiscount(visitDate, order());
+        int actualDiscount = eventDiscountController.calculateSpecialDiscount(visitDate, order);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
 
     @Test
     @DisplayName("할인 전 총주문 금액이 12만원 이상일 경우 샴페인 1개를 증정한다.")
     void presentEvent() {
-        Order order = order();
         VisitDate visitDate = new VisitDate("17");
         int expectedDiscount = 25000;
 
@@ -81,4 +81,24 @@ public class EventTest {
         int actualDiscount = eventDiscountController.calculatePresentDiscount(visitDate, order);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
+
+    @Test
+    @DisplayName("총혜택 금액을 계산한다.")
+    void totalBenefitAmount() {
+        VisitDate visitDate = new VisitDate("8");
+
+        int expectedAmount = 30746;
+        EventDiscountController eventDiscountController = new EventDiscountController();
+
+        assertThat(eventDiscountController.calculateTotalBenefitAmount(visitDate, order)).isEqualTo(expectedAmount);
+    }
+
+    @Test
+    @DisplayName("할인 후 예상 결제 금액을 계산한다.")
+    void paymentAmount() {
+        int totalBenefitAmount = 30746;
+        int expectedAmount = 94254;
+        assertThat(order.calculatePaymentAmount(totalBenefitAmount)).isEqualTo(expectedAmount);
+    }
+
 }

@@ -52,4 +52,8 @@ public class Order {
     public Map<OrderedMenu, OrderedCount> getOrder() {
         return order;
     }
+
+    public int calculatePaymentAmount(int totalBenefitAmount) {
+        return 0;
+    }
 }
