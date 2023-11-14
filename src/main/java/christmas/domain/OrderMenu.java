@@ -8,12 +8,12 @@ import christmas.validator.InMenuBoardValidator;
 import java.util.Map;
 
 public class OrderMenu {
-    private final String orderedMenu;
+    private final String orderMenu;
 
     public OrderMenu(String inputMenu, Map<OrderMenu, OrderCount> orderResult) {
         validateInMenu(inputMenu);
         validateDuplication(inputMenu, orderResult);
-        orderedMenu = inputMenu;
+        orderMenu = inputMenu;
     }
 
     private void validateInMenu(String inputMenu) {
@@ -26,16 +26,16 @@ public class OrderMenu {
         duplicateOrderMenuValidator.validate(inputMenu, orderResult);
     }
 
-    public boolean isEquals(String menu) {
-        return orderedMenu.equals(menu);
+    public String getOrderMenu() {
+        return orderMenu;
     }
 
     private String getOrderedMenuType() {
-        return MenuBoard.getTypeByMenu(orderedMenu);
+        return MenuBoard.getTypeByMenu(orderMenu);
     }
 
     public int getOrderedMenuPrice() {
-        return MenuBoard.getPriceByMenu(orderedMenu);
+        return MenuBoard.getPriceByMenu(orderMenu);
     }
 
     public boolean isWeekEventMenuType(VisitDate visitDate) {
@@ -43,7 +43,7 @@ public class OrderMenu {
         return WeekEventInfo.isWeekEventMenuType(visitDate, orderedMenuType);
     }
 
-    public String getOrderedMenu() {
-        return orderedMenu;
+    public boolean isEquals(String menu) {
+        return orderMenu.equals(menu);
     }
 }

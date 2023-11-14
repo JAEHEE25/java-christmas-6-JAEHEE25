@@ -1,7 +1,7 @@
 package christmas.util;
 
-import christmas.domain.contants.order.OrderInputSetting;
-import christmas.domain.contants.benefitReport.ReportSetting;
+import christmas.domain.contants.order.OrderInputDelimiter;
+import christmas.domain.contants.benefitReport.ReportPhrase;
 
 import java.text.NumberFormat;
 import java.util.Arrays;
@@ -13,14 +13,14 @@ public class Parser {
     }
 
     public static List<String> toOrderList(String playerInput) {
-        return Arrays.stream(playerInput.split(OrderInputSetting.ORDER_DELIMITER.getSetting())).toList();
+        return Arrays.stream(playerInput.split(OrderInputDelimiter.ORDER_DELIMITER.getDelimiter())).toList();
     }
 
     public static String[] toMenuAndCountArray(String order) {
-        return order.split(OrderInputSetting.MENU_COUNT_DELIMITER.getSetting());
+        return order.split(OrderInputDelimiter.MENU_COUNT_DELIMITER.getDelimiter());
     }
 
     public static String toThousandUnitMoney(int money) {
-        return NumberFormat.getInstance().format(money) + ReportSetting.MONEY_UNIT.getSetting();
+        return NumberFormat.getInstance().format(money) + ReportPhrase.MONEY_UNIT.getPhrase();
     }
 }

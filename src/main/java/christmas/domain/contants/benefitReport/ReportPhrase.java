@@ -1,6 +1,6 @@
 package christmas.domain.contants.benefitReport;
 
-public enum ReportSetting {
+public enum ReportPhrase {
     MENU_UNIT("개"),
     MONEY_UNIT("원"),
     NOTHING("없음"),
@@ -12,13 +12,13 @@ public enum ReportSetting {
     MINUS("-"),
     COLON(": ");
 
-    private final String setting;
+    private final String phrase;
 
-    ReportSetting(String setting) {
-        this.setting = setting;
+    ReportPhrase(String phrase) {
+        this.phrase = phrase;
     }
 
-    public String getSetting() {
-        return setting;
+    public String getPhrase() {
+        return phrase;
     }
 }

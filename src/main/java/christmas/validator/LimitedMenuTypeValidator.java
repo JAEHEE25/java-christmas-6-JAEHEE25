@@ -7,22 +7,22 @@ import christmas.domain.contants.order.MenuBoard;
 
 import java.util.Map;
 
-public class OrderMenuValidator implements Validator<Map<OrderMenu, OrderCount>> {
+public class LimitedMenuTypeValidator implements Validator<Map<OrderMenu, OrderCount>> {
     @Override
     public void validate(Map<OrderMenu, OrderCount> order) {
-        if (isAllCannotOnlyOrderType(order)) {
+        if (isLimitedMenuType(order)) {
             throwException(ExceptionMessage.INVALID_ORDER.getMessage());
         }
     }
 
-    private boolean isAllCannotOnlyOrderType(Map<OrderMenu, OrderCount> order) {
-        boolean isAllCannotOnlyOrderType = true;
+    private boolean isLimitedMenuType(Map<OrderMenu, OrderCount> order) {
+        boolean isAllLimitedMenuType = true;
 
         for (OrderMenu orderMenu : order.keySet()) {
-            if (!MenuBoard.isCannotOnlyOrderType(orderMenu)) {
-                isAllCannotOnlyOrderType = false;
+            if (!MenuBoard.isLimitedMenuType(orderMenu)) {
+                isAllLimitedMenuType = false;
             }
         }
-        return isAllCannotOnlyOrderType;
+        return isAllLimitedMenuType;
     }
 }

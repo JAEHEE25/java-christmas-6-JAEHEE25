@@ -36,13 +36,22 @@ public class VisitDate {
         visitDateInRangeNumberValidator.validate(inputDate);
     }
 
+    public int getVisitDate() {
+        return visitDate;
+    }
+
+    public int getChristmasEventDiscountDays() {
+        return Calculator.minus(visitDate, EventPeriod.CHRISTMAS_EVENT.getStartDay());
+    }
+
     public boolean isChristmasEventPeriod() {
         return visitDate >= EventPeriod.CHRISTMAS_EVENT.getStartDay() &&
                 visitDate <= EventPeriod.CHRISTMAS_EVENT.getEndDay();
     }
 
-    public int getChristmasEventDiscountDays() {
-        return Calculator.minus(visitDate, EventPeriod.CHRISTMAS_EVENT.getStartDay());
+    public boolean isDefaultEventPeriod() {
+        return visitDate >= EventPeriod.DEFAULT_EVENT.getStartDay() &&
+                visitDate <= EventPeriod.DEFAULT_EVENT.getEndDay();
     }
 
     public boolean isWeekDayEventPeriod() {
@@ -51,11 +60,6 @@ public class VisitDate {
 
     public boolean isWeekendEventPeriod() {
         return isDefaultEventPeriod() && WeekEventInfo.isWeekend(visitDay);
-    }
-
-    public boolean isDefaultEventPeriod() {
-        return visitDate >= EventPeriod.DEFAULT_EVENT.getStartDay() &&
-                visitDate <= EventPeriod.DEFAULT_EVENT.getEndDay();
     }
 
     public boolean isSpecialEventDate() {
@@ -68,10 +72,6 @@ public class VisitDate {
 
     public boolean isSameDay(int day) {
         return visitDay == day;
-    }
-
-    public int getVisitDate() {
-        return visitDate;
     }
 }
 

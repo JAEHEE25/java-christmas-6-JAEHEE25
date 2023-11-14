@@ -2,7 +2,7 @@ package christmas.controller;
 
 import christmas.domain.Order;
 import christmas.domain.VisitDate;
-import christmas.domain.contants.benefitReport.ReportSetting;
+import christmas.domain.contants.benefitReport.ReportPhrase;
 import christmas.domain.contants.eventInfo.*;
 import christmas.domain.contants.order.MenuBoard;
 import christmas.util.Calculator;
@@ -13,9 +13,9 @@ public class EventDiscountController {
         int totalDiscount = 0;
 
         if (visitDate.isChristmasEventPeriod() && isMeetChristmasEventCriteria(order)) {
-            totalDiscount = ChristmasEventInfo.EVENT_MONEY.getStartMoney();
+            totalDiscount = ChristmasEventAmount.EVENT_AMOUNT.getStartMoney();
             int discountDays = visitDate.getChristmasEventDiscountDays();
-            totalDiscount += Calculator.multiplication(discountDays, ChristmasEventInfo.EVENT_MONEY.getDiscountAmount());
+            totalDiscount += Calculator.multiplication(discountDays, ChristmasEventAmount.EVENT_AMOUNT.getDiscountAmount());
         }
         return totalDiscount;
     }
@@ -85,37 +85,37 @@ public class EventDiscountController {
 
     private String getChristmasEventHistory(VisitDate visitDate, Order order) {
         int totalDiscount = calculateChristmasDiscount(visitDate, order);
-        String eventHistory = getEventHistoryForm(ReportSetting.CHRISTMAS_DISCOUNT.getSetting(), totalDiscount);
+        String eventHistory = getEventHistoryForm(ReportPhrase.CHRISTMAS_DISCOUNT.getPhrase(), totalDiscount);
         return getBlankOrHistoryByTotalDiscount(totalDiscount, eventHistory);
     }
 
     private String getWeekdayEventHistory(VisitDate visitDate, Order order) {
         int totalDiscount = calculateWeekdayDiscount(visitDate, order);
-        String eventHistory = getEventHistoryForm(ReportSetting.WEEKDAY_DISCOUNT.getSetting(), totalDiscount);
+        String eventHistory = getEventHistoryForm(ReportPhrase.WEEKDAY_DISCOUNT.getPhrase(), totalDiscount);
         return getBlankOrHistoryByTotalDiscount(totalDiscount, eventHistory);
     }
 
     private String getWeekendEventHistory(VisitDate visitDate, Order order) {
         int totalDiscount = calculateWeekendDiscount(visitDate, order);
-        String eventHistory = getEventHistoryForm(ReportSetting.WEEKEND_DISCOUNT.getSetting(), totalDiscount);
+        String eventHistory = getEventHistoryForm(ReportPhrase.WEEKEND_DISCOUNT.getPhrase(), totalDiscount);
         return getBlankOrHistoryByTotalDiscount(totalDiscount, eventHistory);
     }
 
     private String getSpecialEventHistory(VisitDate visitDate, Order order) {
         int totalDiscount = calculateSpecialDiscount(visitDate, order);
-        String eventHistory = getEventHistoryForm(ReportSetting.SPECIAL_DISCOUNT.getSetting(), totalDiscount);
+        String eventHistory = getEventHistoryForm(ReportPhrase.SPECIAL_DISCOUNT.getPhrase(), totalDiscount);
         return getBlankOrHistoryByTotalDiscount(totalDiscount, eventHistory);
     }
 
     private String getPresentEventHistory(VisitDate visitDate, Order order) {
         int totalDiscount = calculatePresentDiscount(visitDate, order);
-        String eventHistory = getEventHistoryForm(ReportSetting.PRESENT_EVENT.getSetting(), totalDiscount);
+        String eventHistory = getEventHistoryForm(ReportPhrase.PRESENT_EVENT.getPhrase(), totalDiscount);
         return getBlankOrHistoryByTotalDiscount(totalDiscount, eventHistory);
     }
 
     private String getEventHistoryForm(String title, int totalDiscount) {
-        return title + ReportSetting.COLON.getSetting() +
-                ReportSetting.MINUS.getSetting() + Parser.toThousandUnitMoney(totalDiscount) + "\n";
+        return title + ReportPhrase.COLON.getPhrase() +
+                ReportPhrase.MINUS.getPhrase() + Parser.toThousandUnitMoney(totalDiscount) + "\n";
     }
 
     private String getBlankOrHistoryByTotalDiscount(int totalDiscount, String eventHistory) {

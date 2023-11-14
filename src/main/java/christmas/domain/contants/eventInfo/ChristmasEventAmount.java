@@ -1,11 +1,11 @@
 package christmas.domain.contants.eventInfo;
 
-public enum ChristmasEventInfo {
-    EVENT_MONEY(1000, 100);
+public enum ChristmasEventAmount {
+    EVENT_AMOUNT(1000, 100);
     private final int startMoney;
     private final int discountAmount;
 
-    ChristmasEventInfo(int startMoney, int discountAmount) {
+    ChristmasEventAmount(int startMoney, int discountAmount) {
         this.startMoney = startMoney;
         this.discountAmount = discountAmount;
     }

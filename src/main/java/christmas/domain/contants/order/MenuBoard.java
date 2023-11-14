@@ -40,17 +40,6 @@ public enum MenuBoard {
         return price;
     }
 
-    public static boolean hasMenu(String inputMenu) {
-        return Arrays.stream(MenuBoard.values())
-                .anyMatch(menu -> menu.getMenu().equals(inputMenu));
-    }
-
-    public static boolean isCannotOnlyOrderType(OrderMenu orderMenu) {
-        return Arrays.stream(MenuBoard.values())
-                .filter(menu -> orderMenu.isEquals(menu.getMenu()))
-                .anyMatch(menu -> menu.getType().equals(OrderMenuSetting.CANNOT_ONLY_ORDER_TYPE.getSetting()));
-    }
-
     public static String getTypeByMenu(String orderedMenu) {
         return Arrays.stream(MenuBoard.values())
                 .filter(menuBoard -> orderedMenu.equals(menuBoard.getMenu()))
@@ -61,5 +50,16 @@ public enum MenuBoard {
         return Arrays.stream(MenuBoard.values())
                 .filter(menuBoard -> orderedMenu.equals(menuBoard.getMenu()))
                 .findAny().get().getPrice();
+    }
+
+    public static boolean hasMenu(String inputMenu) {
+        return Arrays.stream(MenuBoard.values())
+                .anyMatch(menu -> menu.getMenu().equals(inputMenu));
+    }
+
+    public static boolean isLimitedMenuType(OrderMenu orderMenu) {
+        return Arrays.stream(MenuBoard.values())
+                .filter(menu -> orderMenu.isEquals(menu.getMenu()))
+                .anyMatch(menu -> menu.getType().equals(LimitedMenuType.LIMITED_MENU_TYPE.getType()));
     }
 }

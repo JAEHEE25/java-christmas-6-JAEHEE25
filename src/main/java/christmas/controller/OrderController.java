@@ -29,7 +29,7 @@ public class OrderController {
 
             OrderMenu orderMenu = new OrderMenu(menuAndCount[0], orderResult);
             OrderCount orderCount = new OrderCount(menuAndCount[1]);
-            totalCount = orderCount.checkCountInRange(totalCount);
+            totalCount = orderCount.validateTotalCountInRange(totalCount);
 
             orderResult.put(orderMenu, orderCount);
         }

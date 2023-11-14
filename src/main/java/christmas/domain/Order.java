@@ -1,7 +1,7 @@
 package christmas.domain;
 
 import christmas.util.Calculator;
-import christmas.validator.OrderMenuValidator;
+import christmas.validator.LimitedMenuTypeValidator;
 
 import java.util.Map;
 
@@ -15,9 +15,9 @@ public class Order {
         totalOrderAmount = calculateToTalOrderAmount();
     }
 
-    public void validateOrderMenu(Map<OrderMenu, OrderCount> inputOrder) {
-        OrderMenuValidator orderMenuValidator = new OrderMenuValidator();
-        orderMenuValidator.validate(inputOrder);
+    private void validateOrderMenu(Map<OrderMenu, OrderCount> inputOrder) {
+        LimitedMenuTypeValidator limitedMenuTypeValidator = new LimitedMenuTypeValidator();
+        limitedMenuTypeValidator.validate(inputOrder);
     }
 
     public int getWeekEventMenuCount(VisitDate visitDate) {
@@ -32,7 +32,7 @@ public class Order {
         return weekEventMenuCount;
     }
 
-    public int calculateToTalOrderAmount() {
+    private int calculateToTalOrderAmount() {
         for (OrderMenu orderMenu : order.keySet()) {
             int price = orderMenu.getOrderedMenuPrice();
             OrderCount orderCount = order.get(orderMenu);
@@ -41,19 +41,19 @@ public class Order {
         return totalOrderAmount;
     }
 
-    public int getTotalOrderAmount() {
-        return totalOrderAmount;
-    }
-
-    public boolean isMeetCriteria(int moneyCriteria) {
-        return totalOrderAmount >= moneyCriteria;
+    public int calculatePaymentAmount(int totalBenefitAmount) {
+        return Calculator.minus(totalOrderAmount, totalBenefitAmount);
     }
 
     public Map<OrderMenu, OrderCount> getOrder() {
         return order;
     }
 
-    public int calculatePaymentAmount(int totalBenefitAmount) {
-        return Calculator.minus(totalOrderAmount, totalBenefitAmount);
+    public int getTotalOrderAmount() {
+        return totalOrderAmount;
+    }
+
+    public boolean isMeetCriteria(int moneyCriteria) {
+        return totalOrderAmount >= moneyCriteria;
     }
 }
