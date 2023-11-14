@@ -64,8 +64,12 @@ public class EventDiscountController {
         return totalDiscount;
     }
 
-    public int calculateTotalDiscountAmount(VisitDate visitDate, Order order) {
-        return 0;
+    public int calculateTotalBenefitAmount(VisitDate visitDate, Order order) {
+        return Calculator.addAllValues(
+                calculateChristmasDiscount(visitDate, order), calculateWeekdayDiscount(visitDate, order),
+                calculateWeekendDiscount(visitDate, order), calculateSpecialDiscount(visitDate, order),
+                calculatePresentDiscount(visitDate, order)
+        );
     }
 
     private boolean isMeetChristmasEventCriteria(Order order) {

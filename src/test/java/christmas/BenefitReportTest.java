@@ -49,7 +49,7 @@ public class BenefitReportTest extends NsTest {
         int expectedAmount = 30746;
         EventDiscountController eventDiscountController = new EventDiscountController();
 
-        assertThat(eventDiscountController.calculateTotalDiscountAmount(visitDate, order)).isEqualTo(expectedAmount);
+        assertThat(eventDiscountController.calculateTotalBenefitAmount(visitDate, order)).isEqualTo(expectedAmount);
     }
 
     @Override

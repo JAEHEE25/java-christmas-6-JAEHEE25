@@ -59,6 +59,11 @@ public class BenefitReport {
         benefitReport.put(BenefitReportInfo.EVENT_HISTORY.getPhrase(), getEventHistory(eventHistory));
     }
 
+    public void putTotalBenefitAmount(int totalBenefitAmount) {
+        benefitReport.put(BenefitReportInfo.TOTAL_BENEFIT_AMOUNT.getPhrase(),
+                ReportSetting.MINUS.getSetting() + Parser.toThousandUnitMoney(totalBenefitAmount) + "\n");
+    }
+
     public Map<String, String> getBenefitReport() {
         return benefitReport;
     }
