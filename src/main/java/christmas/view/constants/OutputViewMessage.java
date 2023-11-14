@@ -1,4 +1,7 @@
-package christmas.domain.contants;
+package christmas.view.constants;
+
+import christmas.domain.contants.eventInfo.EventDate;
+import christmas.domain.contants.eventInfo.EventLocation;
 
 public enum OutputViewMessage {
     BENEFIT_REPORT_MONTH(EventDate.EVENT_MONTH.getNumber() + "월 "),

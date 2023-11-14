@@ -1,7 +1,7 @@
 package christmas.view;
 
 import christmas.domain.VisitDate;
-import christmas.domain.contants.OutputViewMessage;
+import christmas.view.constants.OutputViewMessage;
 
 public class OutputView {
     public void startEventPlanner() {

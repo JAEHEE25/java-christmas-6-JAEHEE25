@@ -1,4 +1,4 @@
-package christmas.domain.contants;
+package christmas.domain.contants.eventInfo;
 
 public enum PresentEventInfo {
     CHAMPAGNE_EVENT(120000, "샴페인", 1);

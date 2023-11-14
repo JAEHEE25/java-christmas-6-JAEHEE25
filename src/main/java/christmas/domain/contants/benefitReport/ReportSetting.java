@@ -1,4 +1,4 @@
-package christmas.domain.contants;
+package christmas.domain.contants.benefitReport;
 
 public enum ReportSetting {
     MENU_UNIT("개"),

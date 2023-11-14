@@ -1,7 +1,7 @@
 package christmas.domain;
 
-import christmas.domain.contants.MenuBoard;
-import christmas.domain.contants.WeekEventInfo;
+import christmas.domain.contants.order.MenuBoard;
+import christmas.domain.contants.eventInfo.WeekEventInfo;
 import christmas.validator.DuplicateMenuValidator;
 import christmas.validator.InMenuBoardValidator;
 

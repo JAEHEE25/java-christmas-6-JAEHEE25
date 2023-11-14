@@ -1,4 +1,4 @@
-package christmas.domain.contants;
+package christmas.domain.contants.order;
 
 public enum OrderCountSetting {
     ORDER_COUNT_MIN(1),

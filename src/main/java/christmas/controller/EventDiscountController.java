@@ -2,7 +2,8 @@ package christmas.controller;
 
 import christmas.domain.Order;
 import christmas.domain.VisitDate;
-import christmas.domain.contants.*;
+import christmas.domain.contants.eventInfo.*;
+import christmas.domain.contants.order.MenuBoard;
 import christmas.util.Calculator;
 
 public class EventDiscountController {

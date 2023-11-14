@@ -1,6 +1,9 @@
 package christmas.domain;
 
-import christmas.domain.contants.*;
+import christmas.domain.contants.benefitReport.BenefitReportInfo;
+import christmas.domain.contants.benefitReport.ReportSetting;
+import christmas.domain.contants.eventInfo.EventBadge;
+import christmas.domain.contants.eventInfo.PresentEventInfo;
 import christmas.util.Parser;
 
 import java.util.Map;

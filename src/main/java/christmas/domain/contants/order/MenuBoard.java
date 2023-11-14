@@ -1,9 +1,8 @@
-package christmas.domain.contants;
+package christmas.domain.contants.order;
 
 import christmas.domain.OrderedMenu;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 public enum MenuBoard {
     MUSHROOM_SOUP("애피타이저", "양송이수프", 6000),

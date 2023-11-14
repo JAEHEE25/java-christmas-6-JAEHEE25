@@ -6,7 +6,7 @@ import christmas.domain.Order;
 import christmas.domain.OrderedCount;
 import christmas.domain.OrderedMenu;
 import christmas.domain.VisitDate;
-import christmas.domain.contants.ExceptionMessage;
+import christmas.validator.constants.ExceptionMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

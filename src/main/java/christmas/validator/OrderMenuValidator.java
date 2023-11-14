@@ -2,8 +2,8 @@ package christmas.validator;
 
 import christmas.domain.OrderedCount;
 import christmas.domain.OrderedMenu;
-import christmas.domain.contants.ExceptionMessage;
-import christmas.domain.contants.MenuBoard;
+import christmas.validator.constants.ExceptionMessage;
+import christmas.domain.contants.order.MenuBoard;
 
 import java.util.Map;
 

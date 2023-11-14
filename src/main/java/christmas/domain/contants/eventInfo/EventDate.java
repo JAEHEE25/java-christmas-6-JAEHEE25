@@ -1,4 +1,4 @@
-package christmas.domain.contants;
+package christmas.domain.contants.eventInfo;
 
 public enum EventDate {
     EVENT_YEAR(2023),

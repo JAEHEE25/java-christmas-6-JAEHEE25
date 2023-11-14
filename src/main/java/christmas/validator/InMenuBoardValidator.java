@@ -1,7 +1,7 @@
 package christmas.validator;
 
-import christmas.domain.contants.ExceptionMessage;
-import christmas.domain.contants.MenuBoard;
+import christmas.validator.constants.ExceptionMessage;
+import christmas.domain.contants.order.MenuBoard;
 
 public class InMenuBoardValidator implements Validator<String> {
     @Override

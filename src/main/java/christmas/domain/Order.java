@@ -1,6 +1,5 @@
 package christmas.domain;
 
-import christmas.domain.contants.MenuBoard;
 import christmas.util.Calculator;
 import christmas.validator.OrderMenuValidator;
 

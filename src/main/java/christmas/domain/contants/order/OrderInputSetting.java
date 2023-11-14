@@ -1,12 +1,12 @@
-package christmas.domain.contants;
+package christmas.domain.contants.order;
 
-public enum InputSetting {
+public enum OrderInputSetting {
     ORDER_DELIMITER(","),
     MENU_COUNT_DELIMITER("-");
 
     private final String setting;
 
-    InputSetting(String setting) {
+    OrderInputSetting(String setting) {
         this.setting = setting;
     }
 

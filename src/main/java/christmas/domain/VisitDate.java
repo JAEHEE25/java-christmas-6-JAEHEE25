@@ -1,9 +1,9 @@
 package christmas.domain;
 
-import christmas.domain.contants.EventDate;
-import christmas.domain.contants.EventPeriod;
-import christmas.domain.contants.SpecialEventDate;
-import christmas.domain.contants.WeekEventInfo;
+import christmas.domain.contants.eventInfo.EventDate;
+import christmas.domain.contants.eventInfo.EventPeriod;
+import christmas.domain.contants.eventInfo.SpecialEventDate;
+import christmas.domain.contants.eventInfo.WeekEventInfo;
 import christmas.util.Calculator;
 import christmas.util.Parser;
 import christmas.validator.DateNumberFormatValidator;

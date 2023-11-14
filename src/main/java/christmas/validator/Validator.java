@@ -1,6 +1,6 @@
 package christmas.validator;
 
-import christmas.domain.contants.ExceptionMessage;
+import christmas.validator.constants.ExceptionMessage;
 
 public interface Validator<T> {
     void validate(T param);

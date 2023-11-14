@@ -1,4 +1,4 @@
-package christmas.domain.contants;
+package christmas.domain.contants.eventInfo;
 
 public enum EventPeriod {
     CHRISTMAS_EVENT(1, 25),

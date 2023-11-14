@@ -1,4 +1,4 @@
-package christmas.domain.contants;
+package christmas.validator.constants;
 
 public enum ExceptionMessage {
     HEADER("[ERROR] "),

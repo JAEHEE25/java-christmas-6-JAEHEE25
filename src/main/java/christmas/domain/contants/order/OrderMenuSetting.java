@@ -1,4 +1,4 @@
-package christmas.domain.contants;
+package christmas.domain.contants.order;
 
 public enum OrderMenuSetting {
     CANNOT_ONLY_ORDER_TYPE("음료");

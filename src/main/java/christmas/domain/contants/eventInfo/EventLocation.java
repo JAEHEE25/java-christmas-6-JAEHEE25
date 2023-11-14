@@ -1,4 +1,4 @@
-package christmas.domain.contants;
+package christmas.domain.contants.eventInfo;
 
 public enum EventLocation {
     LOCATION_NAME("우테코 "),

@@ -1,4 +1,4 @@
-package christmas.domain.contants;
+package christmas.domain.contants.eventInfo;
 
 public enum ChristmasEventInfo {
     EVENT_MONEY(1000, 100);

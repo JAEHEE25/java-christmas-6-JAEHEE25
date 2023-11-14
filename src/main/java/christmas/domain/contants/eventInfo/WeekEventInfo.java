@@ -1,4 +1,4 @@
-package christmas.domain.contants;
+package christmas.domain.contants.eventInfo;
 
 import christmas.domain.VisitDate;
 import christmas.util.Calculator;

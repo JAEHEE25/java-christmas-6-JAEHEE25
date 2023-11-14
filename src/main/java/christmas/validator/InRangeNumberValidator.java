@@ -1,7 +1,7 @@
 package christmas.validator;
 
-import christmas.domain.contants.EventDate;
-import christmas.domain.contants.ExceptionMessage;
+import christmas.domain.contants.eventInfo.EventDate;
+import christmas.validator.constants.ExceptionMessage;
 
 public class InRangeNumberValidator implements Validator<Integer> {
     @Override

@@ -1,9 +1,7 @@
 package christmas.controller;
 
 import christmas.domain.*;
-import christmas.domain.contants.EventPeriod;
-import christmas.domain.contants.PresentEventInfo;
-import christmas.domain.contants.ReportSetting;
+import christmas.domain.contants.benefitReport.ReportSetting;
 import christmas.util.Parser;
 import christmas.view.OutputView;
 

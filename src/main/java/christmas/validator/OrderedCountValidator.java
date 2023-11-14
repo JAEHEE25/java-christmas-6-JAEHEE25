@@ -1,7 +1,7 @@
 package christmas.validator;
 
-import christmas.domain.contants.ExceptionMessage;
-import christmas.domain.contants.OrderCountSetting;
+import christmas.validator.constants.ExceptionMessage;
+import christmas.domain.contants.order.OrderCountSetting;
 
 public class OrderedCountValidator implements Validator<Integer> {
     @Override

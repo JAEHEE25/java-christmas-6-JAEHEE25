@@ -1,4 +1,7 @@
-package christmas.domain.contants;
+package christmas.view.constants;
+
+import christmas.domain.contants.eventInfo.EventDate;
+import christmas.domain.contants.eventInfo.EventLocation;
 
 public enum InputViewMessage {
     VISIT_DATE_INPUT(EventDate.EVENT_MONTH.getNumber() + "월 중 " + EventLocation.LOCATION_TYPE.getLocation() +

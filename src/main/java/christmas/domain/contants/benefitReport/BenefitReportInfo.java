@@ -1,4 +1,4 @@
-package christmas.domain.contants;
+package christmas.domain.contants.benefitReport;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;

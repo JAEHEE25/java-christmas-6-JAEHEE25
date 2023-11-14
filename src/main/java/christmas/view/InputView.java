@@ -1,7 +1,7 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.domain.contants.InputViewMessage;
+import christmas.view.constants.InputViewMessage;
 
 public class InputView {
     public String getVisitDate() {

@@ -1,6 +1,6 @@
 package christmas.validator;
 
-import christmas.domain.contants.ExceptionMessage;
+import christmas.validator.constants.ExceptionMessage;
 import christmas.util.NumberFormatInspector;
 
 public class DateNumberFormatValidator implements Validator<String> {
