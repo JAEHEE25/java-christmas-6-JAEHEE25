@@ -13,17 +13,12 @@ import java.time.LocalDate;
 
 public class VisitDate {
     private final int visitDate;
-    private final int visitDay;
 
     public VisitDate(String playerInput) {
         validateNumberFormat(playerInput);
         int inputDate = Parser.toInt(playerInput);
         validateNumberRange(inputDate);
         visitDate = inputDate;
-
-        LocalDate todayDate = LocalDate.of(EventDate.EVENT_YEAR.getNumber(),
-                EventDate.EVENT_MONTH.getNumber(), visitDate);
-        visitDay = todayDate.getDayOfWeek().getValue();
     }
 
     private void validateNumberFormat(String playerInput) {
@@ -38,6 +33,12 @@ public class VisitDate {
 
     public int getVisitDate() {
         return visitDate;
+    }
+
+    private int getVisitDay() {
+        LocalDate todayDate = LocalDate.of(EventDate.EVENT_YEAR.getNumber(),
+                EventDate.EVENT_MONTH.getNumber(), visitDate);
+        return todayDate.getDayOfWeek().getValue();
     }
 
     public int getChristmasEventDiscountDays() {
@@ -55,11 +56,11 @@ public class VisitDate {
     }
 
     public boolean isWeekDayEventPeriod() {
-        return isDefaultEventPeriod() && WeekEventInfo.isWeekday(visitDay);
+        return isDefaultEventPeriod() && WeekEventInfo.isWeekday(getVisitDay());
     }
 
     public boolean isWeekendEventPeriod() {
-        return isDefaultEventPeriod() && WeekEventInfo.isWeekend(visitDay);
+        return isDefaultEventPeriod() && WeekEventInfo.isWeekend(getVisitDay());
     }
 
     public boolean isSpecialEventDate() {
@@ -71,7 +72,7 @@ public class VisitDate {
     }
 
     public boolean isSameDay(int day) {
-        return visitDay == day;
+        return getVisitDay() == day;
     }
 }
 
