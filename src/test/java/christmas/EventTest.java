@@ -11,7 +11,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -67,7 +66,7 @@ public class EventTest {
         int expectedDiscount = 1000;
 
         EventDiscountController eventDiscountController = new EventDiscountController();
-        int actualDiscount = eventDiscountController.calculateSpecialDiscount(visitDate);
+        int actualDiscount = eventDiscountController.calculateSpecialDiscount(visitDate, order());
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
 
