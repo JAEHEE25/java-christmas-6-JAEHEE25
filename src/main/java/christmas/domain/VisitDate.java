@@ -6,8 +6,8 @@ import christmas.domain.contants.eventInfo.SpecialEventDate;
 import christmas.domain.contants.eventInfo.WeekEventInfo;
 import christmas.util.Calculator;
 import christmas.util.Parser;
-import christmas.validator.DateNumberFormatValidator;
-import christmas.validator.InRangeNumberValidator;
+import christmas.validator.VisitDateNumberFormatValidator;
+import christmas.validator.VisitDateInRangeNumberValidator;
 
 import java.time.LocalDate;
 
@@ -27,13 +27,13 @@ public class VisitDate {
     }
 
     private void validateNumberFormat(String playerInput) {
-        DateNumberFormatValidator dateNumberFormatValidator = new DateNumberFormatValidator();
-        dateNumberFormatValidator.validate(playerInput);
+        VisitDateNumberFormatValidator visitDateNumberFormatValidator = new VisitDateNumberFormatValidator();
+        visitDateNumberFormatValidator.validate(playerInput);
     }
 
     private void validateNumberRange(int inputDate) {
-        InRangeNumberValidator inRangeNumberValidator = new InRangeNumberValidator();
-        inRangeNumberValidator.validate(inputDate);
+        VisitDateInRangeNumberValidator visitDateInRangeNumberValidator = new VisitDateInRangeNumberValidator();
+        visitDateInRangeNumberValidator.validate(inputDate);
     }
 
     public boolean isChristmasEventPeriod() {

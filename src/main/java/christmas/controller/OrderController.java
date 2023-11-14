@@ -1,13 +1,12 @@
 package christmas.controller;
 
 import christmas.domain.Order;
-import christmas.domain.OrderedCount;
-import christmas.domain.OrderedMenu;
+import christmas.domain.OrderCount;
+import christmas.domain.OrderMenu;
 import christmas.util.Parser;
 import christmas.validator.OrderFormValidator;
 import christmas.view.InputView;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,24 +19,24 @@ public class OrderController {
         return inputView.getMenuAndCount();
     }
 
-    public Map<OrderedMenu, OrderedCount> takeOrder(String playerInput) {
-        Map<OrderedMenu, OrderedCount> orderResult = new HashMap<>();
+    public Map<OrderMenu, OrderCount> takeOrder(String playerInput) {
+        Map<OrderMenu, OrderCount> orderResult = new HashMap<>();
         List<String> orders = Parser.toOrderList(playerInput);
 
         for (String order : orders) {
             String[] menuAndCount = Parser.toMenuAndCountArray(order);
             validateOrderForm(menuAndCount);
 
-            OrderedMenu orderedMenu = new OrderedMenu(menuAndCount[0], orderResult);
-            OrderedCount orderedCount = new OrderedCount(menuAndCount[1]);
-            totalCount = orderedCount.checkCountInRange(totalCount);
+            OrderMenu orderMenu = new OrderMenu(menuAndCount[0], orderResult);
+            OrderCount orderCount = new OrderCount(menuAndCount[1]);
+            totalCount = orderCount.checkCountInRange(totalCount);
 
-            orderResult.put(orderedMenu, orderedCount);
+            orderResult.put(orderMenu, orderCount);
         }
         return orderResult;
     }
 
-    public Order createOrder(Map<OrderedMenu, OrderedCount> orderResult) {
+    public Order createOrder(Map<OrderMenu, OrderCount> orderResult) {
         return new Order(orderResult);
     }
 

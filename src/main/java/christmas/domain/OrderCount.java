@@ -2,13 +2,13 @@ package christmas.domain;
 
 import christmas.util.Calculator;
 import christmas.util.Parser;
-import christmas.validator.CountNumberFormatValidator;
-import christmas.validator.OrderedCountValidator;
+import christmas.validator.OrderCountNumberFormatValidator;
+import christmas.validator.OrderCountInRangeValidator;
 
-public class OrderedCount {
+public class OrderCount {
     private final int orderedCount;
 
-    public OrderedCount(String inputCount) {
+    public OrderCount(String inputCount) {
         validateNumberFormat(inputCount);
         int parsedInputCount = Parser.toInt(inputCount);
         validateOrderedCount(parsedInputCount);
@@ -16,13 +16,13 @@ public class OrderedCount {
     }
 
     private void validateNumberFormat(String inputCount) {
-        CountNumberFormatValidator countNumberFormatValidator = new CountNumberFormatValidator();
-        countNumberFormatValidator.validate(inputCount);
+        OrderCountNumberFormatValidator orderCountNumberFormatValidator = new OrderCountNumberFormatValidator();
+        orderCountNumberFormatValidator.validate(inputCount);
     }
 
     private void validateOrderedCount(int count) {
-        OrderedCountValidator orderedCountValidator = new OrderedCountValidator();
-        orderedCountValidator.validate(count);
+        OrderCountInRangeValidator orderCountInRangeValidator = new OrderCountInRangeValidator();
+        orderCountInRangeValidator.validate(count);
     }
 
     public int checkCountInRange(int totalCount) {

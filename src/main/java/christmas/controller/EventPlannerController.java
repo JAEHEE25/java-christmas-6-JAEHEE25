@@ -1,8 +1,6 @@
 package christmas.controller;
 
 import christmas.domain.*;
-import christmas.domain.contants.benefitReport.ReportSetting;
-import christmas.util.Parser;
 import christmas.view.OutputView;
 
 import java.util.Map;
@@ -33,7 +31,7 @@ public class EventPlannerController {
 
     private Order getOrder() {
         String playerInput = orderController.getMenuAndCountInput();
-        Map<OrderedMenu, OrderedCount> orderResult;
+        Map<OrderMenu, OrderCount> orderResult;
         Order order;
 
         try {

@@ -2,15 +2,15 @@ package christmas.domain;
 
 import christmas.domain.contants.order.MenuBoard;
 import christmas.domain.contants.eventInfo.WeekEventInfo;
-import christmas.validator.DuplicateMenuValidator;
+import christmas.validator.DuplicateOrderMenuValidator;
 import christmas.validator.InMenuBoardValidator;
 
 import java.util.Map;
 
-public class OrderedMenu {
+public class OrderMenu {
     private final String orderedMenu;
 
-    public OrderedMenu(String inputMenu, Map<OrderedMenu, OrderedCount> orderResult) {
+    public OrderMenu(String inputMenu, Map<OrderMenu, OrderCount> orderResult) {
         validateInMenu(inputMenu);
         validateDuplication(inputMenu, orderResult);
         orderedMenu = inputMenu;
@@ -21,9 +21,9 @@ public class OrderedMenu {
         inMenuBoardValidator.validate(inputMenu);
     }
 
-    private void validateDuplication(String inputMenu, Map<OrderedMenu, OrderedCount> orderResult) {
-        DuplicateMenuValidator duplicateMenuValidator = new DuplicateMenuValidator();
-        duplicateMenuValidator.validate(inputMenu, orderResult);
+    private void validateDuplication(String inputMenu, Map<OrderMenu, OrderCount> orderResult) {
+        DuplicateOrderMenuValidator duplicateOrderMenuValidator = new DuplicateOrderMenuValidator();
+        duplicateOrderMenuValidator.validate(inputMenu, orderResult);
     }
 
     public boolean isEquals(String menu) {

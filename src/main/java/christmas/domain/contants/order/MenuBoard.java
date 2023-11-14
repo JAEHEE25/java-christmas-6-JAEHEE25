@@ -1,6 +1,6 @@
 package christmas.domain.contants.order;
 
-import christmas.domain.OrderedMenu;
+import christmas.domain.OrderMenu;
 
 import java.util.Arrays;
 
@@ -45,9 +45,9 @@ public enum MenuBoard {
                 .anyMatch(menu -> menu.getMenu().equals(inputMenu));
     }
 
-    public static boolean isCannotOnlyOrderType(OrderedMenu orderedMenu) {
+    public static boolean isCannotOnlyOrderType(OrderMenu orderMenu) {
         return Arrays.stream(MenuBoard.values())
-                .filter(menu -> orderedMenu.isEquals(menu.getMenu()))
+                .filter(menu -> orderMenu.isEquals(menu.getMenu()))
                 .anyMatch(menu -> menu.getType().equals(OrderMenuSetting.CANNOT_ONLY_ORDER_TYPE.getSetting()));
     }
 

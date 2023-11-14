@@ -16,12 +16,12 @@ public class BenefitReport {
     }
 
     private String getOrderMenuList(Order order) {
-        Map<OrderedMenu, OrderedCount> orderResult = order.getOrder();
+        Map<OrderMenu, OrderCount> orderResult = order.getOrder();
         StringBuilder orderMenuList = new StringBuilder();
 
-        for (OrderedMenu orderedMenu : orderResult.keySet()) {
-            int orderCount = orderResult.get(orderedMenu).getOrderedCount();
-            orderMenuList.append(orderedMenu.getOrderedMenu()).append(" ").
+        for (OrderMenu orderMenu : orderResult.keySet()) {
+            int orderCount = orderResult.get(orderMenu).getOrderedCount();
+            orderMenuList.append(orderMenu.getOrderedMenu()).append(" ").
                     append(orderCount).append(ReportSetting.MENU_UNIT.getSetting()).append("\n");
         }
         return orderMenuList.toString();

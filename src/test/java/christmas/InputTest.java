@@ -3,8 +3,8 @@ package christmas;
 import christmas.controller.OrderController;
 import christmas.controller.VisitDateController;
 import christmas.domain.Order;
-import christmas.domain.OrderedCount;
-import christmas.domain.OrderedMenu;
+import christmas.domain.OrderCount;
+import christmas.domain.OrderMenu;
 import christmas.domain.VisitDate;
 import christmas.validator.constants.ExceptionMessage;
 import org.junit.jupiter.api.DisplayName;
@@ -45,12 +45,12 @@ public class InputTest {
     void selectMenu() {
         String playerInput = "티본스테이크-2,제로콜라-1";
 
-        Map<OrderedMenu, OrderedCount> expectedOrder = new HashMap<>();
-        expectedOrder.put(new OrderedMenu("티본스테이크", expectedOrder), new OrderedCount("2"));
-        expectedOrder.put(new OrderedMenu("제로콜라", expectedOrder), new OrderedCount("1"));
+        Map<OrderMenu, OrderCount> expectedOrder = new HashMap<>();
+        expectedOrder.put(new OrderMenu("티본스테이크", expectedOrder), new OrderCount("2"));
+        expectedOrder.put(new OrderMenu("제로콜라", expectedOrder), new OrderCount("1"));
 
         OrderController orderController = new OrderController();
-        Map<OrderedMenu, OrderedCount> actualOrder = orderController.takeOrder(playerInput);
+        Map<OrderMenu, OrderCount> actualOrder = orderController.takeOrder(playerInput);
 
         assertThat(actualOrder).usingRecursiveComparison().isEqualTo(expectedOrder);
     }
@@ -59,9 +59,9 @@ public class InputTest {
     @ValueSource(strings = {"떡볶이-1", "해산물파스타-1,해산물파스타-1"})
     @ParameterizedTest
     void orderedMenu(String playerInput) {
-        Map<OrderedMenu, OrderedCount> orderResult = new HashMap<>();
+        Map<OrderMenu, OrderCount> orderResult = new HashMap<>();
 
-        assertThatThrownBy(() -> new OrderedMenu(playerInput, orderResult))
+        assertThatThrownBy(() -> new OrderMenu(playerInput, orderResult))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage((ExceptionMessage.HEADER.getMessage()) +
                         ExceptionMessage.INVALID_ORDER.getMessage());
@@ -71,7 +71,7 @@ public class InputTest {
     @ValueSource(strings = {"해산물파스타-A", "해산물파스타-0"})
     @ParameterizedTest
     void orderedCount(String playerInput) {
-        assertThatThrownBy(() -> new OrderedCount(playerInput))
+        assertThatThrownBy(() -> new OrderCount(playerInput))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage((ExceptionMessage.HEADER.getMessage()) +
                         ExceptionMessage.INVALID_ORDER.getMessage());
@@ -91,9 +91,9 @@ public class InputTest {
     @Test
     @DisplayName("음료만 주문한 경우 예외가 발생한다.")
     void orderDrinkOnly() {
-        Map<OrderedMenu, OrderedCount> order = new HashMap<>();
-        order.put(new OrderedMenu("레드와인", order), new OrderedCount("2"));
-        order.put(new OrderedMenu("제로콜라", order), new OrderedCount("1"));
+        Map<OrderMenu, OrderCount> order = new HashMap<>();
+        order.put(new OrderMenu("레드와인", order), new OrderCount("2"));
+        order.put(new OrderMenu("제로콜라", order), new OrderCount("1"));
 
         assertThatThrownBy(() -> new Order(order))
                 .isInstanceOf(IllegalArgumentException.class)

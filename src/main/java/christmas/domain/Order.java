@@ -6,16 +6,16 @@ import christmas.validator.OrderMenuValidator;
 import java.util.Map;
 
 public class Order {
-    private final Map<OrderedMenu, OrderedCount> order;
+    private final Map<OrderMenu, OrderCount> order;
     private int totalOrderAmount;
 
-    public Order(Map<OrderedMenu, OrderedCount> inputOrder) {
+    public Order(Map<OrderMenu, OrderCount> inputOrder) {
         validateOrderMenu(inputOrder);
         order = inputOrder;
         totalOrderAmount = calculateToTalOrderAmount();
     }
 
-    public void validateOrderMenu(Map<OrderedMenu, OrderedCount> inputOrder) {
+    public void validateOrderMenu(Map<OrderMenu, OrderCount> inputOrder) {
         OrderMenuValidator orderMenuValidator = new OrderMenuValidator();
         orderMenuValidator.validate(inputOrder);
     }
@@ -23,20 +23,20 @@ public class Order {
     public int getWeekEventMenuCount(VisitDate visitDate) {
         int weekEventMenuCount = 0;
 
-        for (OrderedMenu orderedMenu : order.keySet()) {
-            if (orderedMenu.isWeekEventMenuType(visitDate)) {
-                OrderedCount orderedCount = order.get(orderedMenu);
-                weekEventMenuCount = orderedCount.addTotalCount(weekEventMenuCount);
+        for (OrderMenu orderMenu : order.keySet()) {
+            if (orderMenu.isWeekEventMenuType(visitDate)) {
+                OrderCount orderCount = order.get(orderMenu);
+                weekEventMenuCount = orderCount.addTotalCount(weekEventMenuCount);
             }
         }
         return weekEventMenuCount;
     }
 
     public int calculateToTalOrderAmount() {
-        for (OrderedMenu orderedMenu : order.keySet()) {
-            int price = orderedMenu.getOrderedMenuPrice();
-            OrderedCount orderedCount = order.get(orderedMenu);
-            totalOrderAmount += orderedCount.calculateOrderAmount(price);
+        for (OrderMenu orderMenu : order.keySet()) {
+            int price = orderMenu.getOrderedMenuPrice();
+            OrderCount orderCount = order.get(orderMenu);
+            totalOrderAmount += orderCount.calculateOrderAmount(price);
         }
         return totalOrderAmount;
     }
@@ -49,7 +49,7 @@ public class Order {
         return totalOrderAmount >= moneyCriteria;
     }
 
-    public Map<OrderedMenu, OrderedCount> getOrder() {
+    public Map<OrderMenu, OrderCount> getOrder() {
         return order;
     }
 

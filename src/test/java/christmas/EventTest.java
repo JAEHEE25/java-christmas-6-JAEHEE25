@@ -2,8 +2,8 @@ package christmas;
 
 import christmas.controller.EventDiscountController;
 import christmas.domain.Order;
-import christmas.domain.OrderedCount;
-import christmas.domain.OrderedMenu;
+import christmas.domain.OrderCount;
+import christmas.domain.OrderMenu;
 import christmas.domain.VisitDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,9 +21,9 @@ public class EventTest {
 
     @BeforeEach
     public void order() {
-        Map<OrderedMenu, OrderedCount> orderResult = new HashMap<>();
-        orderResult.put(new OrderedMenu("티본스테이크", orderResult), new OrderedCount("2"));
-        orderResult.put(new OrderedMenu("초코케이크", orderResult), new OrderedCount("1"));
+        Map<OrderMenu, OrderCount> orderResult = new HashMap<>();
+        orderResult.put(new OrderMenu("티본스테이크", orderResult), new OrderCount("2"));
+        orderResult.put(new OrderMenu("초코케이크", orderResult), new OrderCount("1"));
         order = new Order(orderResult);
     }
 
