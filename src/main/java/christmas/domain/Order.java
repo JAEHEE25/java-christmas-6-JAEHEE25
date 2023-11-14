@@ -7,12 +7,10 @@ import java.util.Map;
 
 public class Order {
     private final Map<OrderMenu, OrderCount> order;
-    private int totalOrderAmount;
 
     public Order(Map<OrderMenu, OrderCount> inputOrder) {
         validateOrderNotOnlyLimitedMenuType(inputOrder);
         order = inputOrder;
-        totalOrderAmount = calculateToTalOrderAmount();
     }
 
     private void validateOrderNotOnlyLimitedMenuType(Map<OrderMenu, OrderCount> inputOrder) {
@@ -33,6 +31,8 @@ public class Order {
     }
 
     private int calculateToTalOrderAmount() {
+        int totalOrderAmount = 0;
+
         for (OrderMenu orderMenu : order.keySet()) {
             int price = orderMenu.getOrderedMenuPrice();
             OrderCount orderCount = order.get(orderMenu);
@@ -42,7 +42,7 @@ public class Order {
     }
 
     public int calculatePaymentAmount(int totalBenefitAmount) {
-        return Calculator.minus(totalOrderAmount, totalBenefitAmount);
+        return Calculator.minus(calculateToTalOrderAmount(), totalBenefitAmount);
     }
 
     public Map<OrderMenu, OrderCount> getOrder() {
@@ -50,10 +50,10 @@ public class Order {
     }
 
     public int getTotalOrderAmount() {
-        return totalOrderAmount;
+        return calculateToTalOrderAmount();
     }
 
     public boolean isMeetCriteria(int moneyCriteria) {
-        return totalOrderAmount >= moneyCriteria;
+        return calculateToTalOrderAmount() >= moneyCriteria;
     }
 }
