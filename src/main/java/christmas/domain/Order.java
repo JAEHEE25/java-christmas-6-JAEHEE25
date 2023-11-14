@@ -10,12 +10,12 @@ public class Order {
     private int totalOrderAmount;
 
     public Order(Map<OrderMenu, OrderCount> inputOrder) {
-        validateOrderMenu(inputOrder);
+        validateOrderNotOnlyLimitedMenuType(inputOrder);
         order = inputOrder;
         totalOrderAmount = calculateToTalOrderAmount();
     }
 
-    private void validateOrderMenu(Map<OrderMenu, OrderCount> inputOrder) {
+    private void validateOrderNotOnlyLimitedMenuType(Map<OrderMenu, OrderCount> inputOrder) {
         LimitedMenuTypeValidator limitedMenuTypeValidator = new LimitedMenuTypeValidator();
         limitedMenuTypeValidator.validate(inputOrder);
     }
