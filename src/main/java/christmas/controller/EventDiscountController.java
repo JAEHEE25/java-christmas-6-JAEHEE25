@@ -6,10 +6,10 @@ import christmas.domain.contants.*;
 import christmas.util.Calculator;
 
 public class EventDiscountController {
-    public int calculateChristmasDiscount(VisitDate visitDate) {
+    public int calculateChristmasDiscount(VisitDate visitDate, Order order) {
         int totalDiscount = 0;
 
-        if (visitDate.isChristmasEventPeriod()) {
+        if (visitDate.isChristmasEventPeriod() && isMeetChristmasEventCriteria(order)) {
             totalDiscount = ChristmasEventInfo.EVENT_MONEY.getStartMoney();
             int discountDays = visitDate.getChristmasEventDiscountDays();
             totalDiscount += Calculator.multiplication(discountDays, ChristmasEventInfo.EVENT_MONEY.getDiscountAmount());
@@ -20,7 +20,7 @@ public class EventDiscountController {
     public int calculateWeekdayDiscount(VisitDate visitDate, Order order) {
         int totalDiscount = 0;
 
-        if (visitDate.isWeekDayEventPeriod()) {
+        if (visitDate.isWeekDayEventPeriod() && isMeetDefaultEventCriteria(order)) {
             int weekdayEventMenuCount = order.getWeekEventMenuCount(visitDate);
             totalDiscount = WeekEventInfo.getDiscountAmountByDayWithCount(visitDate, weekdayEventMenuCount);
         }
@@ -30,24 +30,24 @@ public class EventDiscountController {
     public int calculateWeekendDiscount(VisitDate visitDate, Order order) {
         int totalDiscount = 0;
 
-        if (visitDate.isWeekendEventPeriod()) {
+        if (visitDate.isWeekendEventPeriod() && isMeetDefaultEventCriteria(order)) {
             int weekendEventMenuCount = order.getWeekEventMenuCount(visitDate);
             totalDiscount = WeekEventInfo.getDiscountAmountByDayWithCount(visitDate, weekendEventMenuCount);
         }
         return totalDiscount;
     }
 
-    public int calculateSpecialDiscount(VisitDate visitDate) {
+    public int calculateSpecialDiscount(VisitDate visitDate, Order order) {
         int totalDiscount = 0;
 
-        if (visitDate.isSpecialEventDate()) {
+        if (visitDate.isSpecialEventDate() && isMeetDefaultEventCriteria(order)) {
             totalDiscount += SpecialEventDate.getDiscountAmountByDate(visitDate);
         }
         return totalDiscount;
     }
 
     public boolean isPresentEvent(VisitDate visitDate, Order order) {
-        return visitDate.isDefaultEventPeriod() && order.isMeetCriteria(EventPeriod.DEFAULT_EVENT.getMoneyCriteria()) &&
+        return visitDate.isDefaultEventPeriod() && isMeetDefaultEventCriteria(order) &&
                 order.isMeetCriteria(PresentEventInfo.CHAMPAGNE_EVENT.getMoneyCriteria());
     }
 
@@ -62,5 +62,13 @@ public class EventDiscountController {
             totalDiscount += Calculator.multiplication(presentPrice, presentCount);
         }
         return totalDiscount;
+    }
+
+    private boolean isMeetChristmasEventCriteria(Order order) {
+        return order.isMeetCriteria(EventPeriod.CHRISTMAS_EVENT.getMoneyCriteria());
+    }
+
+    private boolean isMeetDefaultEventCriteria(Order order) {
+        return order.isMeetCriteria(EventPeriod.DEFAULT_EVENT.getMoneyCriteria());
     }
 }

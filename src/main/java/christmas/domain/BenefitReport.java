@@ -48,6 +48,17 @@ public class BenefitReport {
         benefitReport.put(BenefitReportInfo.PRESENT_MENU.getPhrase(), getPresentMenu(totalDiscount));
     }
 
+    private String getEventHistory(String eventHistory) {
+        if (eventHistory.isBlank()) {
+            return ReportSetting.NOTHING.getSetting() + "\n";
+        }
+        return eventHistory;
+    }
+
+    public void putEventHistory(String eventHistory) {
+        benefitReport.put(BenefitReportInfo.EVENT_HISTORY.getPhrase(), getEventHistory(eventHistory));
+    }
+
     public Map<String, String> getBenefitReport() {
         return benefitReport;
     }

@@ -2,6 +2,9 @@ package christmas.controller;
 
 import christmas.domain.*;
 import christmas.domain.contants.EventPeriod;
+import christmas.domain.contants.PresentEventInfo;
+import christmas.domain.contants.ReportSetting;
+import christmas.util.Parser;
 import christmas.view.OutputView;
 
 import java.util.Map;
@@ -45,22 +48,72 @@ public class EventPlannerController {
         return order;
     }
 
-    public void applyEventDiscount(VisitDate visitDate, Order order) {
-        applyPresentEventDiscount(visitDate, order);
-    }
-
-    public void applyPresentEventDiscount(VisitDate visitDate, Order order) {
-        int totalDiscount = eventDiscountController.calculatePresentDiscount(visitDate, order);
-        benefitReport.putPresentMenu(totalDiscount);
-    }
-
     public void startBenefitReport(VisitDate visitDate) {
         outputView.startBenefitReport(visitDate);
     }
 
-    public void setBenefitReport(Order order) {
+    public String getChristmasEventHistory(VisitDate visitDate, Order order) {
+        int totalDiscount = eventDiscountController.calculateChristmasDiscount(visitDate, order);
+        if (totalDiscount == 0) {
+            return "";
+        }
+        return getEventHistoryForm(ReportSetting.CHRISTMAS_DISCOUNT.getSetting(), totalDiscount);
+    }
+
+    public String getWeekdayEventHistory(VisitDate visitDate, Order order) {
+        int totalDiscount = eventDiscountController.calculateWeekdayDiscount(visitDate, order);
+        if (totalDiscount == 0) {
+            return "";
+        }
+        return getEventHistoryForm(ReportSetting.WEEKDAY_DISCOUNT.getSetting(), totalDiscount);
+    }
+
+    public String getWeekendEventHistory(VisitDate visitDate, Order order) {
+        int totalDiscount = eventDiscountController.calculateWeekendDiscount(visitDate, order);
+        if (totalDiscount == 0) {
+            return "";
+        }
+        return getEventHistoryForm(ReportSetting.WEEKEND_DISCOUNT.getSetting(), totalDiscount);
+    }
+
+    public String getSpecialEventHistory(VisitDate visitDate, Order order) {
+        int totalDiscount = eventDiscountController.calculateSpecialDiscount(visitDate, order);
+        if (totalDiscount == 0) {
+            return "";
+        }
+        return getEventHistoryForm(ReportSetting.SPECIAL_DISCOUNT.getSetting(), totalDiscount);
+    }
+
+    public String getPresentEventHistory(VisitDate visitDate, Order order) {
+        int totalDiscount = eventDiscountController.calculatePresentDiscount(visitDate, order);
+        benefitReport.putPresentMenu(totalDiscount);
+
+        if (totalDiscount == 0) {
+            return "";
+        }
+        return getEventHistoryForm(ReportSetting.PRESENT_EVENT.getSetting(), totalDiscount);
+    }
+
+    private String getEventHistoryForm(String title, int totalDiscount) {
+        return title + ReportSetting.COLON.getSetting() +
+                ReportSetting.MINUS.getSetting() + Parser.toThousandUnitMoney(totalDiscount) + "\n";
+    }
+
+    public String setEventHistory(VisitDate visitDate, Order order) {
+        StringBuilder eventHistory = new StringBuilder();
+        eventHistory.append(getChristmasEventHistory(visitDate, order));
+        eventHistory.append(getWeekdayEventHistory(visitDate, order));
+        eventHistory.append(getWeekendEventHistory(visitDate, order));
+        eventHistory.append(getSpecialEventHistory(visitDate, order));
+        eventHistory.append(getPresentEventHistory(visitDate, order));
+
+        return eventHistory.toString();
+    }
+
+    public void setBenefitReport(VisitDate visitDate, Order order) {
         benefitReport.putOrderMenuList(order);
         benefitReport.putTotalOrderAmount(order);
+        benefitReport.putEventHistory(setEventHistory(visitDate, order));
     }
 
     public String getBenefitReport() {
@@ -79,10 +132,8 @@ public class EventPlannerController {
         VisitDate visitDate = getVisitDate();
         Order order = getOrder();
 
-        applyEventDiscount(visitDate, order);
-
         startBenefitReport(visitDate);
-        setBenefitReport(order);
+        setBenefitReport(visitDate, order);
         outputView.printBenefitReport(getBenefitReport());
     }
 }

@@ -11,6 +11,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,8 +29,10 @@ public class EventTest {
     @ParameterizedTest
     void christmasEvent(String playerInput, int expectedDiscount) {
         VisitDate visitDate = new VisitDate(playerInput);
+        Order order = new Order(new HashMap<>());
+
         EventDiscountController eventDiscountController = new EventDiscountController();
-        int actualDiscount = eventDiscountController.calculateChristmasDiscount(visitDate);
+        int actualDiscount = eventDiscountController.calculateChristmasDiscount(visitDate, order);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
 
