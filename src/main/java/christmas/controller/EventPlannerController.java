@@ -50,68 +50,11 @@ public class EventPlannerController {
         outputView.printBenefitReportStartMessage(visitDate);
     }
 
-    public String getChristmasEventHistory(VisitDate visitDate, Order order) {
-        int totalDiscount = eventDiscountController.calculateChristmasDiscount(visitDate, order);
-        if (totalDiscount == 0) {
-            return "";
-        }
-        return getEventHistoryForm(ReportSetting.CHRISTMAS_DISCOUNT.getSetting(), totalDiscount);
-    }
-
-    public String getWeekdayEventHistory(VisitDate visitDate, Order order) {
-        int totalDiscount = eventDiscountController.calculateWeekdayDiscount(visitDate, order);
-        if (totalDiscount == 0) {
-            return "";
-        }
-        return getEventHistoryForm(ReportSetting.WEEKDAY_DISCOUNT.getSetting(), totalDiscount);
-    }
-
-    public String getWeekendEventHistory(VisitDate visitDate, Order order) {
-        int totalDiscount = eventDiscountController.calculateWeekendDiscount(visitDate, order);
-        if (totalDiscount == 0) {
-            return "";
-        }
-        return getEventHistoryForm(ReportSetting.WEEKEND_DISCOUNT.getSetting(), totalDiscount);
-    }
-
-    public String getSpecialEventHistory(VisitDate visitDate, Order order) {
-        int totalDiscount = eventDiscountController.calculateSpecialDiscount(visitDate, order);
-        if (totalDiscount == 0) {
-            return "";
-        }
-        return getEventHistoryForm(ReportSetting.SPECIAL_DISCOUNT.getSetting(), totalDiscount);
-    }
-
-    public String getPresentEventHistory(VisitDate visitDate, Order order) {
-        int totalDiscount = eventDiscountController.calculatePresentDiscount(visitDate, order);
-        benefitReport.putPresentMenu(totalDiscount);
-
-        if (totalDiscount == 0) {
-            return "";
-        }
-        return getEventHistoryForm(ReportSetting.PRESENT_EVENT.getSetting(), totalDiscount);
-    }
-
-    private String getEventHistoryForm(String title, int totalDiscount) {
-        return title + ReportSetting.COLON.getSetting() +
-                ReportSetting.MINUS.getSetting() + Parser.toThousandUnitMoney(totalDiscount) + "\n";
-    }
-
-    public String setEventHistory(VisitDate visitDate, Order order) {
-        StringBuilder eventHistory = new StringBuilder();
-        eventHistory.append(getChristmasEventHistory(visitDate, order));
-        eventHistory.append(getWeekdayEventHistory(visitDate, order));
-        eventHistory.append(getWeekendEventHistory(visitDate, order));
-        eventHistory.append(getSpecialEventHistory(visitDate, order));
-        eventHistory.append(getPresentEventHistory(visitDate, order));
-
-        return eventHistory.toString();
-    }
-
     public void setBenefitReport(VisitDate visitDate, Order order) {
         benefitReport.putOrderMenuList(order);
         benefitReport.putTotalOrderAmount(order);
-        benefitReport.putEventHistory(setEventHistory(visitDate, order));
+        benefitReport.putPresentMenu(eventDiscountController.calculatePresentDiscount(visitDate, order));
+        benefitReport.putEventHistory(eventDiscountController.getEventHistory(visitDate, order));
 
         int totalBenefitAmount = eventDiscountController.calculateTotalBenefitAmount(visitDate, order);
         benefitReport.putTotalBenefitAmount(totalBenefitAmount);
