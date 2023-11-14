@@ -16,14 +16,6 @@ public enum EventBadge {
         this.badgeName = badgeName;
     }
 
-    public int getMoneyCriteria() {
-        return moneyCriteria;
-    }
-
-    public String getBadgeName() {
-        return badgeName;
-    }
-
     public static String getBadgeNameByBenefitAmount(int totalBenefitAmount) {
         Optional<EventBadge> eventBadge = Arrays.stream(EventBadge.values())
                 .filter(badge -> totalBenefitAmount >= badge.moneyCriteria)
