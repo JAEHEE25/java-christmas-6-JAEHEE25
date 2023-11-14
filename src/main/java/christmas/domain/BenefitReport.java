@@ -36,23 +36,19 @@ public class BenefitReport {
                 Parser.toThousandUnitMoney(order.getTotalOrderAmount()) + "\n");
     }
 
-    private String getPresentMenu(Order order, int totalDiscount) {
-        if (isMeetDefaultEventCriteria(order) && totalDiscount != 0) {
+    private String getPresentMenu(int totalDiscount) {
+        if (totalDiscount != 0) {
             return PresentEventInfo.CHAMPAGNE_EVENT.getPresent() + " " +
                     PresentEventInfo.CHAMPAGNE_EVENT.getCount() + ReportSetting.MENU_UNIT.getSetting() + "\n";
         }
         return ReportSetting.NOTHING.getSetting() + "\n";
     }
 
-    public void putPresentMenu(Order order, int totalDiscount) {
-        benefitReport.put(BenefitReportInfo.PRESENT_MENU.getPhrase(), getPresentMenu(order, totalDiscount));
+    public void putPresentMenu(int totalDiscount) {
+        benefitReport.put(BenefitReportInfo.PRESENT_MENU.getPhrase(), getPresentMenu(totalDiscount));
     }
 
     public Map<String, String> getBenefitReport() {
         return benefitReport;
-    }
-
-    private boolean isMeetDefaultEventCriteria(Order order) {
-        return order.isMeetCriteria(EventPeriod.DEFAULT_EVENT.getMoneyCriteria());
     }
 }

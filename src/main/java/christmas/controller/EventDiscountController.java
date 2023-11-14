@@ -47,7 +47,7 @@ public class EventDiscountController {
     }
 
     public boolean isPresentEvent(VisitDate visitDate, Order order) {
-        return visitDate.isDefaultEventPeriod() &&
+        return visitDate.isDefaultEventPeriod() && order.isMeetCriteria(EventPeriod.DEFAULT_EVENT.getMoneyCriteria()) &&
                 order.isMeetCriteria(PresentEventInfo.CHAMPAGNE_EVENT.getMoneyCriteria());
     }
 
