@@ -51,7 +51,7 @@ public class EventPlannerController {
 
     public void applyPresentEventDiscount(VisitDate visitDate, Order order) {
         int totalDiscount = eventDiscountController.calculatePresentDiscount(visitDate, order);
-        benefitReport.putPresentMenu(totalDiscount);
+        benefitReport.putPresentMenu(order, totalDiscount);
     }
 
     public void startBenefitReport(VisitDate visitDate) {

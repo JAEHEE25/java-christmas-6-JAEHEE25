@@ -6,10 +6,12 @@ public enum EventPeriod {
 
     private final int startDay;
     private final int endDay;
+    private final int moneyCriteria;
 
     EventPeriod(int startDay, int endDay) {
         this.startDay = startDay;
         this.endDay = endDay;
+        this.moneyCriteria = 10000;
     }
 
     public int getStartDay() {
@@ -18,6 +20,10 @@ public enum EventPeriod {
 
     public int getEndDay() {
         return endDay;
+    }
+
+    public int getMoneyCriteria() {
+        return moneyCriteria;
     }
 }
 
