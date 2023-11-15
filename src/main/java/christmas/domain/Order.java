@@ -1,16 +1,51 @@
 package christmas.domain;
 
 import christmas.util.Calculator;
+import christmas.util.Parser;
 import christmas.validator.LimitedMenuTypeValidator;
+import christmas.validator.OrderFormValidator;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Order {
     private final Map<OrderMenu, OrderCount> order;
 
-    public Order(Map<OrderMenu, OrderCount> inputOrder) {
-        validateOrderNotOnlyLimitedMenuType(inputOrder);
-        order = inputOrder;
+    public Order(String playerInput) {
+        order = takeOrder(playerInput);
+    }
+
+    private Map<OrderMenu, OrderCount> takeOrder(String playerInput) {
+        Map<OrderMenu, OrderCount> orderResult = new HashMap<>();
+        List<String> orders = toOrderList(playerInput);
+        int totalCount = 0;
+
+        for (String order : orders) {
+            String[] menuAndCount = toMenuAndCountArray(order);
+            OrderMenu orderMenu = new OrderMenu(menuAndCount[0], orderResult);
+            OrderCount orderCount = new OrderCount(menuAndCount[1]);
+            totalCount = orderCount.validateTotalCountInRange(totalCount);
+
+            orderResult.put(orderMenu, orderCount);
+        }
+        validateOrderNotOnlyLimitedMenuType(orderResult);
+        return orderResult;
+    }
+
+    private List<String> toOrderList(String playerInput) {
+        return Parser.toOrderList(playerInput);
+    }
+
+    private String[] toMenuAndCountArray(String order) {
+        String[] menuAndCount = Parser.toMenuAndCountArray(order);
+        validateOrderForm(menuAndCount);
+        return menuAndCount;
+    }
+
+    private void validateOrderForm(String[] menuAndCount) {
+        OrderFormValidator orderFormValidator = new OrderFormValidator();
+        orderFormValidator.validate(menuAndCount);
     }
 
     private void validateOrderNotOnlyLimitedMenuType(Map<OrderMenu, OrderCount> inputOrder) {

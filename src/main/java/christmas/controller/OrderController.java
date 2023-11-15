@@ -13,36 +13,12 @@ import java.util.Map;
 
 public class OrderController {
     private final InputView inputView = new InputView();
-    private int totalCount = 0;
 
     public String getMenuAndCountInput() {
         return inputView.getMenuAndCount();
     }
 
-    public Map<OrderMenu, OrderCount> takeOrder(String playerInput) {
-        Map<OrderMenu, OrderCount> orderResult = new HashMap<>();
-        List<String> orders = Parser.toOrderList(playerInput);
-
-        for (String order : orders) {
-            String[] menuAndCount = Parser.toMenuAndCountArray(order);
-            validateOrderForm(menuAndCount);
-
-            OrderMenu orderMenu = new OrderMenu(menuAndCount[0], orderResult);
-            OrderCount orderCount = new OrderCount(menuAndCount[1]);
-            totalCount = orderCount.validateTotalCountInRange(totalCount);
-
-            orderResult.put(orderMenu, orderCount);
-        }
-        return orderResult;
+    public Order createOrder(String playerInput) {
+        return new Order(playerInput);
     }
-
-    public Order createOrder(Map<OrderMenu, OrderCount> orderResult) {
-        return new Order(orderResult);
-    }
-
-    private void validateOrderForm(String[] menuAndCount) {
-        OrderFormValidator orderFormValidator = new OrderFormValidator();
-        orderFormValidator.validate(menuAndCount);
-    }
-
 }

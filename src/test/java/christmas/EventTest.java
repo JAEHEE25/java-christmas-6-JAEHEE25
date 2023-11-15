@@ -2,30 +2,16 @@ package christmas;
 
 import christmas.controller.EventDiscountController;
 import christmas.domain.Order;
-import christmas.domain.OrderCount;
-import christmas.domain.OrderMenu;
 import christmas.domain.VisitDate;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EventTest {
-    private static Order order;
-
-    @BeforeEach
-    public void order() {
-        Map<OrderMenu, OrderCount> orderResult = new HashMap<>();
-        orderResult.put(new OrderMenu("티본스테이크", orderResult), new OrderCount("2"));
-        orderResult.put(new OrderMenu("초코케이크", orderResult), new OrderCount("1"));
-        order = new Order(orderResult);
-    }
+    private static final Order ORDER = new Order("티본스테이크-2,초코케이크-1");
 
     @DisplayName("크리스마스 디데이에 따라 할인 금액이 100원씩 증가한다.")
     @CsvSource({"1,1000", "14,2300","25,3400"})
@@ -34,7 +20,7 @@ public class EventTest {
         VisitDate visitDate = new VisitDate(playerInput);
 
         EventDiscountController eventDiscountController = new EventDiscountController();
-        int actualDiscount = eventDiscountController.calculateChristmasDiscount(visitDate, order);
+        int actualDiscount = eventDiscountController.calculateChristmasDiscount(visitDate, ORDER);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
 
@@ -45,7 +31,7 @@ public class EventTest {
         int expectedDiscount = 2023;
 
         EventDiscountController eventDiscountController = new EventDiscountController();
-        int actualDiscount = eventDiscountController.calculateWeekdayDiscount(visitDate, order);
+        int actualDiscount = eventDiscountController.calculateWeekdayDiscount(visitDate, ORDER);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
 
@@ -56,7 +42,7 @@ public class EventTest {
         int expectedDiscount = 4046;
 
         EventDiscountController eventDiscountController = new EventDiscountController();
-        int actualDiscount = eventDiscountController.calculateWeekendDiscount(visitDate, order);
+        int actualDiscount = eventDiscountController.calculateWeekendDiscount(visitDate, ORDER);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
 
@@ -67,7 +53,7 @@ public class EventTest {
         int expectedDiscount = 1000;
 
         EventDiscountController eventDiscountController = new EventDiscountController();
-        int actualDiscount = eventDiscountController.calculateSpecialDiscount(visitDate, order);
+        int actualDiscount = eventDiscountController.calculateSpecialDiscount(visitDate, ORDER);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
 
@@ -78,7 +64,7 @@ public class EventTest {
         int expectedDiscount = 25000;
 
         EventDiscountController eventDiscountController = new EventDiscountController();
-        int actualDiscount = eventDiscountController.calculatePresentDiscount(visitDate, order);
+        int actualDiscount = eventDiscountController.calculatePresentDiscount(visitDate, ORDER);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
 
@@ -89,7 +75,7 @@ public class EventTest {
 
         int expectedAmount = 30746;
         EventDiscountController eventDiscountController = new EventDiscountController();
-        assertThat(eventDiscountController.calculateTotalBenefitAmount(visitDate, order)).isEqualTo(expectedAmount);
+        assertThat(eventDiscountController.calculateTotalBenefitAmount(visitDate, ORDER)).isEqualTo(expectedAmount);
     }
 
     @Test
@@ -97,7 +83,6 @@ public class EventTest {
     void calculate_payment_Amount() {
         int totalBenefitAmount = 30746;
         int expectedAmount = 94254;
-        assertThat(order.calculatePaymentAmount(totalBenefitAmount)).isEqualTo(expectedAmount);
+        assertThat(ORDER.calculatePaymentAmount(totalBenefitAmount)).isEqualTo(expectedAmount);
     }
-
 }

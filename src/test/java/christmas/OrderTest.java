@@ -25,10 +25,9 @@ public class OrderTest {
         expectedOrder.put(new OrderMenu("티본스테이크", expectedOrder), new OrderCount("2"));
         expectedOrder.put(new OrderMenu("제로콜라", expectedOrder), new OrderCount("1"));
 
-        OrderController orderController = new OrderController();
-        Map<OrderMenu, OrderCount> actualOrder = orderController.takeOrder(playerInput);
+        Order actualOrder = new Order(playerInput);
 
-        assertThat(actualOrder).usingRecursiveComparison().isEqualTo(expectedOrder);
+        assertThat(actualOrder.getOrder()).usingRecursiveComparison().isEqualTo(expectedOrder);
     }
 
     @Test
@@ -69,7 +68,7 @@ public class OrderTest {
         String playerInput = "해산물파스타-19,레드와인-2";
         OrderController orderController = new OrderController();
 
-        assertThatThrownBy(() -> orderController.takeOrder(playerInput))
+        assertThatThrownBy(() -> new Order(playerInput))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage((ExceptionMessage.HEADER.getMessage()) +
                         ExceptionMessage.INVALID_ORDER.getMessage());
@@ -81,7 +80,7 @@ public class OrderTest {
     void order_Form_Must_Be_Accurate(String playerInput) {
         OrderController orderController = new OrderController();
 
-        assertThatThrownBy(() -> orderController.takeOrder(playerInput))
+        assertThatThrownBy(() -> new Order(playerInput))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage((ExceptionMessage.HEADER.getMessage()) +
                 ExceptionMessage.INVALID_ORDER.getMessage());
@@ -90,11 +89,9 @@ public class OrderTest {
     @Test
     @DisplayName("음료만 주문한 경우 예외가 발생한다.")
     void order_Drink_Only() {
-        Map<OrderMenu, OrderCount> order = new HashMap<>();
-        order.put(new OrderMenu("레드와인", order), new OrderCount("2"));
-        order.put(new OrderMenu("제로콜라", order), new OrderCount("1"));
+        String playerInput = "레드와인-2,제로콜라-1";
 
-        assertThatThrownBy(() -> new Order(order))
+        assertThatThrownBy(() -> new Order(playerInput))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage((ExceptionMessage.HEADER.getMessage()) +
                         ExceptionMessage.INVALID_ORDER.getMessage());
